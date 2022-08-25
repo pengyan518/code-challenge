@@ -1,5 +1,5 @@
 /**
- * Debouncer
+ * Debounce
  *
  * @param {Function} callback - The callback function
  * @param {Number} delay - The delay number value
@@ -9,7 +9,7 @@
 
 export default (func: any, timeout = 300) => {
   let timer: string | number | NodeJS.Timeout | undefined
-  return (...args) => {
+  return (...args: any) => {
     clearTimeout(timer)
     timer = setTimeout(() => {
       func.apply(this, args)

@@ -1,39 +1,30 @@
 import React, {useState, memo, useCallback, useMemo, useEffect} from 'react'
 import axios from 'axios'
 
-// import {useActionsCity, useCityData} from '../../features/getCityData'
-// import {useFrameActions, usePopupLocateCityActions} from '../../features/getModal'
-
 import config, {prefix} from '../config'
 import Suggestion from './Suggestion'
 import debounce from '../utils/debounce'
-// import debounce from '../../utils/debouncer'
+import {useMainContext} from '../contexts/MainContext'
 
-export default memo(() => {
+const AutoCompleteForm = memo(() => {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([])
-  // if (query !== '') {
-  //   filteredNames = fakeNames.filter(name => name.toLowerCase().includes(query.toLowerCase()))
-  // }
+  const {showSuggestion, setShowSuggestion} = useMainContext()
 
   const onTextChanged = async value => {
-    // const {value} = e.target
-    // let suggestions = []
     if (value.length > 0) {
       const response = await axios.get(`${config.search}${value}`)
-      await setSuggestions(response.data)
+      setSuggestions(response.data)
+      setShowSuggestion(true)
     }
   }
 
-  const changeHandler = (event: {target: {value: React.SetStateAction<string>}}) => {
+  const changeHandler = useCallback((event: {target: {value: React.SetStateAction<string>}}) => {
     setQuery(event.target.value)
     onTextChanged(event.target.value)
-  }
-  // const onChangeFn = (e)=> {debounce(() => {onTextChanged(e)}, 400)}
+  }, [])
 
-  // https://dmitripavlutin.com/react-throttle-debounce/
-  // const debouncedChangeHandler = useCallback(debounce(changeHandler, 300), [])
-  const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 300), [])
+  const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 300), [changeHandler])
 
   // useEffect(
   //   () => () => {
@@ -58,8 +49,11 @@ export default memo(() => {
           aria-haspopup="false"
         />
       </div>
-      {query !== '' && suggestions.length > 0 && <Suggestion suggestions={suggestions} query={query} />}
+      {query !== '' && suggestions.length > 0 && showSuggestion && <Suggestion suggestions={suggestions} query={query} />}
       <div>{suggestions.length === 0 && query !== '' && 'No matches...'}</div>
     </>
   )
 })
+
+AutoCompleteForm.displayName = 'AutoCompleteForm'
+export default AutoCompleteForm
