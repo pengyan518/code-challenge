@@ -4,6 +4,7 @@ import axios from 'axios'
 import styles from '../styles/Home.module.css'
 import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
+import {useFetchCity} from "../hooks/useFetchCity";
 
 type DailyProps = {
   title?: string
@@ -13,24 +14,17 @@ type DailyProps = {
 }
 
 const Daily = (props: DailyProps) => {
-  const [forecastday, setForecastday] = useState([])
-  const {value, setValue} = useMainContext()
-  const [current, setCurrent] = useState({})
-  const fetchInitial = async () => {
-    try {
-      const response = await axios.get(`${config.forecast}12771&days=5`)
-      await setCurrent(response.data.current)
-      await setForecastday(response.data.forecast.forecastday)
-      await setValue({test:1})
-    } catch (error) {
-      throw error
-    }
-  }
+  // const [forecastday, setForecastday] = useState([])
+  // const {city, setCurrentCity} = useMainContext()
+  // const [current, setCurrent] = useState({})
+  //
+  //
+  // useEffect(() => {
+  //   if (forecastday.length === 0) fetchInitial()
+  //   return () => {}
+  // }, [fetchInitial, forecastday, forecastday.length, city])
 
-  useEffect(() => {
-    if (forecastday.length === 0) fetchInitial()
-    return () => {}
-  }, [fetchInitial, forecastday, forecastday.length, value])
+  const {fetchInitial, forecastday, city, current} = useFetchCity()
 
   return (
     <div className={`max-w-screen-lg mx-auto px-3 ${props.yPadding ? props.yPadding : 'py-16'}`}>
@@ -42,7 +36,6 @@ const Daily = (props: DailyProps) => {
             {forecastday.map(oneDay => {
               const {date, date_epoch, hour, day} = oneDay
               const {avgtemp_f, condition} = day
-              console.debug(value)
               return (
                 <a key={date_epoch} className={styles.card}>
                   <h2>{date}</h2>

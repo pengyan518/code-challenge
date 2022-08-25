@@ -4,6 +4,7 @@ import axios from 'axios'
 import styles from '../styles/Home.module.css'
 import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
+import AutoCompleteForm from "../autoComplete/AutoCompleteForm";
 
 type SearchProps = {
   title?: string
@@ -32,8 +33,8 @@ const Search = (props: SearchProps) => {
   // }, [fetchInitial, forecastday, forecastday.length, value])
 
   return (
-    <div className={`max-w-screen-lg mx-auto px-3 ${props.yPadding ? props.yPadding : 'py-16'}`}>
-      <input />
+    <div className={`max-w-screen-lg mx-auto px-3`}>
+      <AutoCompleteForm />
     </div>
   )
 }
