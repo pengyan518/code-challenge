@@ -14,7 +14,8 @@ export default memo(({name}) => {
   const {city, setCurrentCity, fetchInitial} = useFetchCity()
   const getCityData = useCallback(() => {
     setCurrentCity(name)
-    fetchInitial()
+    console.log(name)
+    fetchInitial(name)
   }, [fetchInitial, name, setCurrentCity])
   // const getDate = useCallback(
   //   async loginLangCode => {

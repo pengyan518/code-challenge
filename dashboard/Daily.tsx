@@ -14,15 +14,6 @@ type DailyProps = {
 }
 
 const Daily = (props: DailyProps) => {
-  // const [forecastday, setForecastday] = useState([])
-  // const {city, setCurrentCity} = useMainContext()
-  // const [current, setCurrent] = useState({})
-  //
-  //
-  // useEffect(() => {
-  //   if (forecastday.length === 0) fetchInitial()
-  //   return () => {}
-  // }, [fetchInitial, forecastday, forecastday.length, city])
 
   const {fetchInitial, forecastday, city, current} = useFetchCity()
 
