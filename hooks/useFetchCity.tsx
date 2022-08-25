@@ -3,16 +3,9 @@ import axios from 'axios'
 import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
 
-type DailyProps = {
-  // title?: string
-  // description?: string
-  // yPadding?: string
-  // children?: ReactNode
-}
 
 const useFetchCity = () => {
-  const [forecastday, setForecastday] = useState([])
-  const {city, setCurrentCity} = useMainContext()
+  const {city, setCurrentCity, forecastday, setForecastday} = useMainContext()
   const [current, setCurrent] = useState({})
 
   const fetchInitial = useCallback(async (cityName:string) => {
@@ -24,12 +17,9 @@ const useFetchCity = () => {
     } catch (error) {
       throw error
     }
-  },[city])
+  },[setForecastday])
 
-  useEffect(() => {
-    if (forecastday.length === 0) fetchInitial(city)
-    return () => {}
-  }, [fetchInitial, forecastday, forecastday.length, city, setCurrentCity])
+
 
   return {fetchInitial, forecastday, city, current, setCurrentCity}
 }

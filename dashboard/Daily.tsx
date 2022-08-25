@@ -17,6 +17,11 @@ const Daily = (props: DailyProps) => {
 
   const {fetchInitial, forecastday, city, current} = useFetchCity()
 
+  useEffect(() => {
+    if (forecastday.length === 0) fetchInitial(city)
+    return () => {}
+  }, [fetchInitial, forecastday, forecastday.length, city])
+
   return (
     <div className={`max-w-screen-lg mx-auto px-3 ${props.yPadding ? props.yPadding : 'py-16'}`}>
       <div className={styles.grid}>
