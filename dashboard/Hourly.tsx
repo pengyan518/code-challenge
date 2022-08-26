@@ -6,53 +6,28 @@ import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
 import {useFetchCity} from '../hooks/useFetchCity'
 
-type DailyProps = {
-  title?: string
-  description?: string
-  yPadding?: string
+type HourlyProps = {
   children?: ReactNode
 }
 
-const Daily = (props: DailyProps) => {
-  const {fetchInitial, forecastday, city, current} = useFetchCity()
-
-  useEffect(() => {
-    if (forecastday.length === 0) fetchInitial(city)
-    return () => {}
-  }, [fetchInitial, forecastday, city])
-  console.debug(forecastday)
+const Hourly = (props: HourlyProps) => {
+  const {hoursDetail, setHoursDetail} = useMainContext()
+  // if (hoursDetail.hour.length === 0) return <></>
   return (
     <div className={`max-w-screen-lg mx-auto px-3`}>
-      <div className={styles.grid}>
-        {forecastday.length === 0 ? (
-          <>Loading</>
-        ) : (
-          <>
-            {forecastday.map((oneCity, i) => {
-              return (
-                <div key={i} className="grid-wrapper">
-                  {oneCity.days.length > 0 && oneCity.days.map(oneDay => {
-                    const {date, date_epoch, hour, day} = oneDay
-                    const {maxtemp_f, mintemp_f, condition} = day
-                    return (
-                      <a key={date_epoch} className={styles.card}>
-                        <h2>{date}</h2>
-                        <p>{condition.text}</p>
-                        <p>
-                          {maxtemp_f} {mintemp_f}
-                        </p>
-                        {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={32} height={32} />}
-                      </a>
-                    )
-                  })}
-                </div>
-              )
-            })}
-          </>
-        )}
+      {hoursDetail.city}
+      <div>
+        {hoursDetail.hour.length > 0 && hoursDetail.hour.map(oneHour => {
+          const {condition, temp_f, time_epoch} = oneHour
+          return (
+            <div key={time_epoch}>
+              <img src={`https://${condition.icon}`} alt="" width={24} height={24} />
+            </div>
+          )
+        })}
       </div>
     </div>
   )
 }
 
-export {Daily}
+export {Hourly}

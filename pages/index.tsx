@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import {Daily} from '../dashboard/Daily'
 import {MainContext} from '../contexts/MainContext'
 import {Search} from '../dashboard/Search'
+import {Hourly} from '../dashboard/Hourly'
 
 const Home: NextPage = () => {
   return (
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
       <MainContext>
         <main className={styles.main}>
           <Search />
+          <Hourly />
           <Daily />
         </main>
       </MainContext>
