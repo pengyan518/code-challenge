@@ -7,12 +7,12 @@ type SuggestionItemProps = {
 }
 const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
   const {setShowSuggestion} = useMainContext()
-  const {city, setCurrentCity, fetchInitial} = useFetchCity()
+  const {fetchInitial} = useFetchCity()
   const getCityData = useCallback(() => {
-    setCurrentCity(name)
     fetchInitial(name)
     setShowSuggestion(false)
-  }, [fetchInitial, name, setCurrentCity, setShowSuggestion])
+    document.querySelector('#search-form').value = ''
+  }, [fetchInitial, name, setShowSuggestion])
 
   return (
     <li className="hand">

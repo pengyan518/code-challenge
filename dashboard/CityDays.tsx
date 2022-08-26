@@ -4,7 +4,6 @@ import {OneDay} from './OneDay'
 
 type CityDaysProps = {
   forecastday?: any[]
-  city?: string
 }
 
 const CityDays = (props: CityDaysProps) => (
@@ -14,7 +13,7 @@ const CityDays = (props: CityDaysProps) => (
         return (
           <div key={i} className="grid-wrapper">
             {oneCity.days.length > 0 &&
-              oneCity.days.map((oneDay: {date_epoch: string}) => <OneDay key={oneDay.date_epoch} oneDay={oneDay} city={props.city} />)}
+              oneCity.days.map((oneDay: {date_epoch: string}) => <OneDay key={oneDay.date_epoch} oneDay={oneDay} city={oneCity.city} />)}
           </div>
         )
       })}

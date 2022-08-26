@@ -16,8 +16,12 @@
 .hand {
   cursor: pointer;
 }
-.d-f {
+.d-f,
+.flex {
   display: flex;
+}
+.grid {
+  display: grid;
 }
 .no-display {
   display: none;
@@ -163,4 +167,11 @@
 .bgCenter {
   background-size: cover;
   background-position: 50%;
+}
+.w-full {
+  width: 100%;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
 }

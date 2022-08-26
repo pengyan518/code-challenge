@@ -4,10 +4,9 @@ import SuggestionItem from './SuggestionItem'
 
 interface IProps {
   suggestions?: any[]
-  query?: string
 }
 
-const Suggestion: FC<IProps> = memo(({suggestions, query}) => {
+const Suggestion: FC<IProps> = memo(({suggestions}) => {
   return (
     <ul aria-label="Search" className="autoComplete_list ps-a" role="listbox">
       {suggestions && suggestions.map((item, inx) => (

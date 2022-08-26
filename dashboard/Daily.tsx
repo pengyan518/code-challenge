@@ -13,7 +13,7 @@ const Daily = () => {
   console.debug(forecastday)
   return (
     <div className={`max-w-screen-lg mx-auto px-3`}>
-      <div className={styles.grid}>{forecastday.length === 0 ? <>Loading</> : <CityDays forecastday={forecastday} city={city} />}</div>
+      <div className={styles.grid}>{forecastday.length === 0 ? <>Loading</> : <CityDays forecastday={forecastday} />}</div>
     </div>
   )
 }

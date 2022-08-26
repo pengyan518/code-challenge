@@ -19,14 +19,16 @@ const useFetchCity = () => {
     async (cityName: string) => {
       try {
         const response = await axios.get(`${config.forecast}${cityName}&days=5`)
-        await setCurrent(response.data.current)
-        const forecastDaysArray = response.data.forecast.forecastday
-        await setForecastday(filterDuplicate(forecastday, response.data.location.name, forecastDaysArray))
+        const {location, current, forecast} = response.data
+        await setCurrent(current)
+        await setCurrentCity(location.name)
+        const forecastDaysArray = forecast.forecastday
+        await setForecastday(filterDuplicate(forecastday, location.name, forecastDaysArray))
       } catch (error) {
         throw error
       }
     },
-    [filterDuplicate, forecastday, setForecastday]
+    [filterDuplicate, forecastday, setCurrentCity, setForecastday]
   )
 
   return {fetchInitial, forecastday, city, current, setCurrentCity}
