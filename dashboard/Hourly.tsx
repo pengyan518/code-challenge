@@ -22,7 +22,7 @@ const Hourly = (props: HourlyProps) => {
           return (
             <div key={time_epoch}>
               <div>{time.split(' ')[1]}</div>
-              <div>{temp_f}</div>
+              <div>{temp_f}°</div>
               <img src={`https://${condition.icon}`} alt="" width={24} height={24} />
             </div>
           )

@@ -25,7 +25,7 @@ const OneDay = (props: DayProps) => {
       <h2>{date}</h2>
       <p>{condition.text}</p>
       <p>
-        {maxtemp_f} {mintemp_f}
+        {maxtemp_f}° {' '}{mintemp_f}°
       </p>
       {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={32} height={32} />}
     </a>
