@@ -46,7 +46,7 @@ const AutoCompleteForm = memo(() => {
         />
       </form>
       {query !== '' && suggestions.length > 0 && showSuggestion && <Suggestion suggestions={suggestions} />}
-      <div>{suggestions.length === 0 && query !== '' && 'No matches...'}</div>
+      <div className="autoComplete_list absolute">{suggestions.length === 0 && query !== '' && 'No matches...'}</div>
     </>
   )
 })
