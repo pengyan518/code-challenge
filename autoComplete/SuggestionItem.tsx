@@ -8,15 +8,18 @@ type SuggestionItemProps = {
 const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
   const {setShowSuggestion} = useMainContext()
   const {fetchInitial} = useFetchCity()
-  const getCityData = useCallback(() => {
+  const handleClick = useCallback(() => {
+    const indicators = document.querySelectorAll('.swipe__dot')
     fetchInitial(name)
     // setShowSuggestion(false)
     // document.querySelector('#search-form').value = ''
+    if (indicators && indicators.length) window.goToPosition({position: (indicators.length - 1) * window.groupLength})()
+    // if (indicators && indicators.length > 1) window.goToPosition({position: window.count})()
   }, [fetchInitial, name, setShowSuggestion])
 
   return (
     <li className="hand">
-      <a role="button" tabIndex={0} onClick={getCityData}>
+      <a role="button" tabIndex={0} onClick={handleClick}>
         <div className="AutocompleteItem" dangerouslySetInnerHTML={{__html: name}} />
       </a>
     </li>

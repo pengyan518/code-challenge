@@ -15,8 +15,8 @@ const CityDays = (props: CityDaysProps) => {
       {props.forecastday &&
         props.forecastday.map((oneCity, i) => {
           return (
-            <SwipeItem>
-              <div key={i} className="grid-wrapper w-full">
+            <SwipeItem key={oneCity.city}>
+              <div className="grid-wrapper w-full">
                 <div className="a-center">{oneCity.city}</div>
                 {oneCity.days.length > 0 &&
                   oneCity.days.map((oneDay: {date_epoch: string}) => (

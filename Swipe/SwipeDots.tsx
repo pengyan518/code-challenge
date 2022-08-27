@@ -4,13 +4,12 @@ interface SwipeDotsProps {
   current: number
   count: number
   groupLength: number
-  rawCurrent: number
   vertical: boolean
   goToPosition: (p: {position: number}) => void
 }
 
 const SwipeDots: React.FC<SwipeDotsProps> = props => {
-  const {current, rawCurrent, vertical, count, groupLength, goToPosition} = props
+  const {current, vertical, count, groupLength, goToPosition} = props
 
   if (count <= groupLength) {
     return null

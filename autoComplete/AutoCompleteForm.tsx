@@ -23,7 +23,7 @@ const AutoCompleteForm = memo(() => {
   )
 
   const changeHandler = useCallback(
-    (event: {target: {value: React.SetStateAction<string>}}) => {
+    (event: {target: {value: string}}) => {
       const target = event.target
       setQuery(target.value)
       onTextChanged(target.value)

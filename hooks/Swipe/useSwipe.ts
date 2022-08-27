@@ -55,7 +55,7 @@ const useSwipe = (options: SwipeParams) => {
       offset: -realCurrent * size,
     })
   }
-  
+
 
   const slideTo = ({step = 0, swiping = false, offset = 0}: SlideToParams) => {
     if (count <= groupLength) return
@@ -126,6 +126,8 @@ const useSwipe = (options: SwipeParams) => {
       setCurrent(position)
     }
 
+
+
   const next = () => {
     resetCurrent()
     slideTo({step: groupLength})
@@ -157,6 +159,8 @@ const useSwipe = (options: SwipeParams) => {
       prev()
     }
   }
+
+  window.goToPosition = goToPosition
 
   return {
     swipeRef,
