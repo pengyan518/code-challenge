@@ -54,28 +54,6 @@ const useSwipe = (options: SwipeParams) => {
     })
   }
 
-  // const resetChild = (step: number, offset: number) => {
-  //   let direction = ''
-  //   if (step < 0 || offset > 0) {
-  //     direction = 'left'
-  //   }
-  //   if (step > 0 || offset < 0) {
-  //     direction = 'right'
-  //   }
-  //   if ([-1, count - groupLength].includes(current)) {
-  //     // refs[0].setOffset(direction === 'right' ? count * size : 0)
-  //     // refs[refs.length - 1].setOffset(0)
-  //     refs.forEach((ref, i) => {
-  //       if (i < groupLength) {
-  //         // ref.setOffset(direction === 'right' ? i * size : i * size)
-  //       }
-  //     })
-  //   }
-  //   if ([count, 0].includes(current)) {
-  //     // refs[0].setOffset(0)
-  //     // refs[refs.length - 1].setOffset(direction === 'right' ? 0 : -count * size)
-  //   }
-  // }
 
   const slideTo = ({step = 0, swiping = false, offset = 0}: SlideToParams) => {
     if (count <= 1) return

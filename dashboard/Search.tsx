@@ -9,7 +9,7 @@ type SearchProps = {
 
 const Search = (props: SearchProps) => {
   return (
-    <div className={`max-w-screen-lg mx-auto px-3`}>
+    <div className="mx-auto relative">
       <AutoCompleteForm />
     </div>
   )

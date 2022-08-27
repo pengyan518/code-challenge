@@ -10,9 +10,9 @@ const Daily = () => {
     if (forecastday.length === 0) fetchInitial(city)
     return () => {}
   }, [fetchInitial, forecastday, city])
-  console.debug(forecastday)
+  // console.debug(forecastday)
   return (
-    <div className={`max-w-screen-lg mx-auto px-3`}>
+    <div className="mx-auto w-full">
       <div className={styles.grid}>{forecastday.length === 0 ? <>Loading</> : <CityDays forecastday={forecastday} />}</div>
     </div>
   )

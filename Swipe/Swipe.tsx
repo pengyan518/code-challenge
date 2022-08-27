@@ -1,15 +1,14 @@
 import React, {useEffect, useImperativeHandle, useMemo, useRef} from 'react'
-import {ChevronRightIcon, ChevronLeftIcon} from '@heroicons/react/solid'
 // eslint-disable-next-line import/no-cycle
 import SwipeItem from './SwipeItem'
-import useRect from '../../hooks/Swipe/useRect'
-import useSwipe from '../../hooks/Swipe/useSwipe'
-import useVisibility from '../../hooks/Swipe/useVisibility'
-import useEventListener from '../../hooks/Swipe/useEventListener'
-import useTouch from '../../hooks/Swipe/useTouch'
-import useResize from '../../hooks/Swipe/useResize'
-import {SwipeRoot} from './styles'
-import { ChevronLeft, ChevronRight } from "../SvgIcons";
+import useRect from '../hooks/Swipe/useRect'
+import useSwipe from '../hooks/Swipe/useSwipe'
+import useVisibility from '../hooks/Swipe/useVisibility'
+import useEventListener from '../hooks/Swipe/useEventListener'
+import useTouch from '../hooks/Swipe/useTouch'
+import useResize from '../hooks/Swipe/useResize'
+
+import {ChevronLeft, ChevronRight} from '../SvgIcons'
 // import SwipeDots from './SwipeDots'
 
 export interface SwipeRef {
@@ -42,7 +41,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     loop = true,
     onSlideChange,
     // eslint-disable-next-line no-nested-ternary
-    groupLength = window.innerWidth >= 1024 ? 4 : window.innerWidth < 768 ? 2 : 3,
+    groupLength = window.innerWidth >= 1024 ? 5 : window.innerWidth < 768 ? 2 : 3,
     // groupLength = window.innerWidth < 768 ? 2 : 4,
     showIndicators = true,
   } = props
@@ -54,7 +53,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const itemKey = useMemo(() => (vertical ? 'height' : 'width'), [vertical])
   // const itemStyle = useMemo(() => ({[itemKey]: itemSize}), [itemKey, itemSize])
 
-  // 核心方法
+  // core
   const {setRefs, slideTo, next, prev, current, swipeRef, loopMove} = useSwipe({
     count,
     vertical,
@@ -67,6 +66,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const wrappStyle = useMemo(
     () => ({
       [itemKey]: itemSize * count,
+      gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))`,
     }),
     [itemKey, itemSize, count]
   )
@@ -112,7 +112,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     if (itemSize) {
       slideTo({step: initialSwipe - current, swiping: true})
     }
-  }, [itemSize, initialSwipe])
+  }, [itemSize, initialSwipe, slideTo, current])
 
   useEffect(() => {
     if (itemSize) {
@@ -132,7 +132,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     hidden ? onPause() : onPlay()
-  }, [hidden])
+  }, [hidden, onPlay])
 
   useEventListener(
     'touchmove',
@@ -170,9 +170,8 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     }
   })
 
-
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <button className="absolute w-12 left-0 z-10 h-5/6 hidden md:flex items-center" onClick={prev}>
         {/*  @ts-ignore */}
         <ChevronLeft className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
@@ -189,8 +188,8 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
         onTouchCancel={onTouchEnd}
         onTouchEnd={onTouchEnd}
         style={props.style}
-        className="mx-auto relative overflow-hidden ml-4 mr-0 md:ml-14 md:mr-12 my-4">
-        <SwipeRoot ref={swipeRef} style={wrappStyle} count={count} className="grid gap-4 md:gap-6 2xl:gap-8">
+        className="mx-auto relative overflow-hidden ml-4 mr-0 md:ml-14 md:mr-12 my-4 w-full">
+        <div ref={swipeRef} style={wrappStyle} count={count} className="grid gap-4 md:gap-6 2xl:gap-8">
           {React.Children.map(props.children, (child, index) => {
             if (!React.isValidElement(child)) return null
             if (child.type !== SwipeItem) return null
@@ -200,7 +199,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
               ref: setRefs(index),
             })
           })}
-        </SwipeRoot>
+        </div>
         {/* {showIndicators && <SwipeDots current={current} vertical={vertical} count={count} />} */}
       </div>
     </div>

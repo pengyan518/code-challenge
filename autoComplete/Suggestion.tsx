@@ -8,7 +8,7 @@ interface IProps {
 
 const Suggestion: FC<IProps> = memo(({suggestions}) => {
   return (
-    <ul aria-label="Search" className="autoComplete_list ps-a" role="listbox">
+    <ul aria-label="Search" className="autoComplete_list absolute" role="listbox">
       {suggestions && suggestions.map((item, inx) => (
         <SuggestionItem key={inx} name={item.name} />
       ))}

@@ -1,7 +1,5 @@
 import React, {useImperativeHandle, useMemo, useRef, useState} from 'react'
-// eslint-disable-next-line import/no-cycle
 import {SwipeProps} from './Swipe'
-// import styles from './styles.module.less';
 
 export interface SwipeItemRef {
   setOffset: React.Dispatch<React.SetStateAction<number>>
@@ -29,7 +27,7 @@ const SwipeItem = React.forwardRef<SwipeItemRef, SwipeItemProps>((props, ref) =>
       transform: offset ? `translate${props.vertical ? 'Y' : 'X'}(${offset}px)` : '',
       ...style,
     }
-  }, [offset, style, vertical])
+  }, [offset, props.vertical, style])
 
   return (
     <div ref={swipeItemRef} className="" style={itemStyle}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import config from '../../config'
+import config from '../config'
 
 const Spinner: React.FC = props => (
   <svg xmlns={config.xlmns} fill="currentColor" {...props}>

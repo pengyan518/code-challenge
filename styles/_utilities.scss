@@ -12,7 +12,21 @@
 .al-end {
   align-items: flex-end !important;
 }
+.flex-col {
+  flex-direction: column;
+}
 
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
 .hand {
   cursor: pointer;
 }
@@ -20,6 +34,7 @@
 .flex {
   display: flex;
 }
+
 .grid {
   display: grid;
 }
@@ -40,7 +55,7 @@
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .cf:after,
@@ -61,88 +76,6 @@
 
 .bold-700 {
   font-weight: 700;
-}
-
-.mt-1 {
-  margin-top: 1px !important;
-}
-
-.mt-5 {
-  margin-top: 5px !important;
-}
-
-.mt-10 {
-  margin-top: 10px !important;
-}
-
-.mt-15 {
-  margin-top: 15px !important;
-}
-
-.mt-20 {
-  margin-top: 20px !important;
-}
-
-.mt-5vw {
-  margin-top: 5vw !important;
-}
-
-.mb-1 {
-  margin-bottom: 1px !important;
-}
-
-.mb-5 {
-  margin-bottom: 5px !important;
-}
-
-.mb-10 {
-  margin-bottom: 10px !important;
-}
-
-.mb-15 {
-  margin-bottom: 15px !important;
-}
-
-.mb-20 {
-  margin-bottom: 20px !important;
-}
-
-.ml-2vw {
-  margin-left: 2vw;
-}
-
-.ml-10 {
-  margin-left: 10px;
-}
-
-.ml-5 {
-  margin-left: 5px;
-}
-
-.p-ab,
-.ps-a {
-  position: absolute;
-}
-
-.p-r,
-.ps-r {
-  position: relative;
-}
-.fz24 {
-  font-size: 24px;
-}
-.fz18 {
-  font-size: 18px;
-}
-.fz15 {
-  font-size: 15px;
-}
-.fz100p {
-  font-size: 100%;
-}
-
-.fz1rem {
-  font-size: 1rem;
 }
 
 .bold {
@@ -168,10 +101,109 @@
   background-size: cover;
   background-position: 50%;
 }
+
+.h-full {
+  height: 100%;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
+.h-5 {
+  height: 1.25rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-7 {
+  height: 1.75rem;
+}
+
+.h-5\/6 {
+  height: 83.333333%;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-full {
   width: 100%;
 }
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-7\/12 {
+  width: 58.333333%;
+}
+
+.w-5 {
+  width: 1.25rem;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.w-7 {
+  width: 1.75rem;
+}
+.right-4 {
+  right: 1rem;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.right-12 {
+  right: 3rem;
+}
+
+.bottom-5 {
+  bottom: 1.25rem;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .md\:flex {
+    display: flex;
+  }
 }

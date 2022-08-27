@@ -1,5 +1,5 @@
 import React from 'react'
-import config from '../../config'
+import config from '../config'
 
 const Close: React.FC = props => (
   <svg xmlns={config.xlmns} fill="currentColor" {...props}>
@@ -8,3 +8,4 @@ const Close: React.FC = props => (
 )
 
 export default Close
+
