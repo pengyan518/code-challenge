@@ -13,8 +13,10 @@ type SwipeParams = {
 
 type SlideToParams = Partial<{
   step: number
+  position: number
   swiping: boolean
   offset: number
+  disabled: boolean
 }>
 
 interface SwipeItemRef {
@@ -38,7 +40,7 @@ const useSwipe = (options: SwipeParams) => {
     if (realCurrent === count - groupLength) {
       loopDirection.current = -1
     }
-  }, [realCurrent])
+  }, [count, groupLength, realCurrent])
 
   const setStyle = (dom: HTMLDivElement | null, opt: {swiping: boolean; offset: number}) => {
     if (!dom) return
@@ -53,10 +55,10 @@ const useSwipe = (options: SwipeParams) => {
       offset: -realCurrent * size,
     })
   }
-
+  
 
   const slideTo = ({step = 0, swiping = false, offset = 0}: SlideToParams) => {
-    if (count <= 1) return
+    if (count <= groupLength) return
 
     let direction = ''
     if (step < 0 || offset > 0) {
@@ -65,8 +67,8 @@ const useSwipe = (options: SwipeParams) => {
     if (step > 0 || offset < 0) {
       direction = 'right'
     }
+    // console.debug(direction)
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     // loop && resetChild(step, offset)
     const futureCurrent = Math.min(Math.max(realCurrent + step, minCurrent), maxCurrent)
     let futureOffset = -futureCurrent * size + offset
@@ -97,10 +99,32 @@ const useSwipe = (options: SwipeParams) => {
         })
       })
     }
-
-    console.debug(futureCurrent)
+    // console.debug('futureCurrent', futureCurrent)
     setCurrent(futureCurrent)
   }
+
+  const goToPosition =
+    ({position = 0, disabled = false, swiping = true, offset = 0}: SlideToParams) =>
+    () => {
+      if (count <= groupLength) return
+      const futureOffset = -position * size + offset
+      if (swiping) {
+        setStyle(swipeRef.current, {
+          swiping,
+          offset: futureOffset,
+        })
+      } else {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setStyle(swipeRef.current, {
+              swiping,
+              offset: futureOffset,
+            })
+          })
+        })
+      }
+      setCurrent(position)
+    }
 
   const next = () => {
     resetCurrent()
@@ -110,6 +134,16 @@ const useSwipe = (options: SwipeParams) => {
   const prev = () => {
     resetCurrent()
     slideTo({step: -groupLength})
+  }
+
+  const activatedNext = () => {
+    if (count <= groupLength) return false
+    return current < count - groupLength
+  }
+
+  const activatedPrev = () => {
+    if (count <= groupLength) return false
+    return current !== 0
   }
 
   const loopMove = () => {
@@ -128,10 +162,14 @@ const useSwipe = (options: SwipeParams) => {
     swipeRef,
     setRefs,
     current: realCurrent,
+    rawCurrent: current,
     slideTo,
     next,
     prev,
     loopMove,
+    activatedNext,
+    activatedPrev,
+    goToPosition,
   }
 }
 

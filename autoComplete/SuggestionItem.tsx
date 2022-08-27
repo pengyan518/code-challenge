@@ -10,8 +10,8 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
   const {fetchInitial} = useFetchCity()
   const getCityData = useCallback(() => {
     fetchInitial(name)
-    setShowSuggestion(false)
-    document.querySelector('#search-form').value = ''
+    // setShowSuggestion(false)
+    // document.querySelector('#search-form').value = ''
   }, [fetchInitial, name, setShowSuggestion])
 
   return (

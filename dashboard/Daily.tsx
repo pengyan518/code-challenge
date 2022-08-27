@@ -12,8 +12,8 @@ const Daily = () => {
   }, [fetchInitial, forecastday, city])
   // console.debug(forecastday)
   return (
-    <div className="mx-auto w-full">
-      <div className={styles.grid}>{forecastday.length === 0 ? <>Loading</> : <CityDays forecastday={forecastday} />}</div>
+    <div className="w-full">
+      <div className={`${styles.grid} mx-auto`}>{forecastday.length === 0 ? <>Loading</> : <CityDays forecastday={forecastday} />}</div>
     </div>
   )
 }

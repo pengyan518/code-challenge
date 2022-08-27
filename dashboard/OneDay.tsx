@@ -21,13 +21,13 @@ const OneDay = (props: DayProps) => {
     })
   }, [date, hour, props.city, setHoursDetail])
   return (
-    <a key={date_epoch} className={styles.card} onClick={showHours}>
-      <h2>{date}</h2>
-      <p>{condition.text}</p>
+    <a key={date_epoch} className={`${styles.card} text-center`} onClick={showHours}>
+      <h5>{date}</h5>
+      {/*<div>{condition.text}</div>*/}
       <p>
-        {maxtemp_f}° {' '}{mintemp_f}°
+        {maxtemp_f}° {mintemp_f}°
       </p>
-      {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={32} height={32} />}
+      {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={48} height={48} />}
     </a>
   )
 }

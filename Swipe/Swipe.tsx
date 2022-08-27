@@ -1,6 +1,7 @@
 import React, {useEffect, useImperativeHandle, useMemo, useRef} from 'react'
 // eslint-disable-next-line import/no-cycle
 import SwipeItem from './SwipeItem'
+import SwipeDots from './SwipeDots'
 import useRect from '../hooks/Swipe/useRect'
 import useSwipe from '../hooks/Swipe/useSwipe'
 import useVisibility from '../hooks/Swipe/useVisibility'
@@ -9,7 +10,6 @@ import useTouch from '../hooks/Swipe/useTouch'
 import useResize from '../hooks/Swipe/useResize'
 
 import {ChevronLeft, ChevronRight} from '../SvgIcons'
-// import SwipeDots from './SwipeDots'
 
 export interface SwipeRef {
   next: () => void
@@ -40,9 +40,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     touchable = true,
     loop = true,
     onSlideChange,
-    // eslint-disable-next-line no-nested-ternary
     groupLength = window.innerWidth >= 1024 ? 5 : window.innerWidth < 768 ? 2 : 3,
-    // groupLength = window.innerWidth < 768 ? 2 : 4,
     showIndicators = true,
   } = props
   const timer = useRef<NodeJS.Timeout | null>(null)
@@ -54,7 +52,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   // const itemStyle = useMemo(() => ({[itemKey]: itemSize}), [itemKey, itemSize])
 
   // core
-  const {setRefs, slideTo, next, prev, current, swipeRef, loopMove} = useSwipe({
+  const {setRefs, slideTo, next, prev, current, rawCurrent, swipeRef, loopMove, activatedNext, activatedPrev, goToPosition} = useSwipe({
     count,
     vertical,
     duration,
@@ -62,7 +60,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     loop,
     groupLength,
   })
-  // const distance = (0 - current) * itemSize
+
   const wrappStyle = useMemo(
     () => ({
       [itemKey]: itemSize * count,
@@ -80,7 +78,6 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   }
 
   const onPause = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     timer.current && clearTimeout(timer.current)
     timer.current = null
   }
@@ -102,8 +99,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     if (!touchable) return
     const {deltaX, time, deltaY} = touch.end()
     const delta = vertical ? deltaY : deltaX
-    // eslint-disable-next-line no-nested-ternary
-    const step = itemSize / 2 < Math.abs(delta) || Math.abs(delta / time) > 0.25 ? (delta > 0 ? -groupLength : groupLength) : 0
+    const step = itemSize / 2 < Math.abs(delta) || Math.abs(delta / time) > 0.25 ? (delta > 0 ? -1 : 1) : 0
     slideTo({swiping: false, step})
     onPlay()
   }
@@ -112,7 +108,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     if (itemSize) {
       slideTo({step: initialSwipe - current, swiping: true})
     }
-  }, [itemSize, initialSwipe, slideTo, current])
+  }, [itemSize, initialSwipe])
 
   useEffect(() => {
     if (itemSize) {
@@ -124,15 +120,13 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   }, [count, autoplay, current, itemSize])
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onSlideChange && onSlideChange(current)
   }, [current])
 
   const hidden = useVisibility()
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     hidden ? onPause() : onPlay()
-  }, [hidden, onPlay])
+  }, [hidden])
 
   useEventListener(
     'touchmove',
@@ -170,13 +164,20 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     }
   })
 
+  console.debug('current', current)
+  console.debug('rawCurrent', rawCurrent)
+  console.debug('count', count)
   return (
     <div className="relative w-full">
-      <button className="absolute w-12 left-0 z-10 h-5/6 hidden md:flex items-center" onClick={prev}>
+      <button
+        className={`absolute w-12 left-0 z-10 h-5/6 hidden md:flex items-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
+        onClick={prev}>
         {/*  @ts-ignore */}
         <ChevronLeft className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
       </button>
-      <button className="absolute w-12 right-0 z-10 h-5/6 hidden md:flex items-center" onClick={next}>
+      <button
+        className={`absolute w-12 right-0 z-10 h-5/6 hidden md:flex items-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
+        onClick={next}>
         {/*  @ts-ignore */}
         <ChevronRight className="h-9 w-9 text-sky-600 mt-1" viewBox="0 0 16 16" />
       </button>
@@ -200,7 +201,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
             })
           })}
         </div>
-        {/* {showIndicators && <SwipeDots current={current} vertical={vertical} count={count} />} */}
+        {showIndicators && <SwipeDots current={current} vertical={vertical} count={count} groupLength={groupLength} goToPosition={goToPosition} rawCurrent={rawCurrent} />}
       </div>
     </div>
   )

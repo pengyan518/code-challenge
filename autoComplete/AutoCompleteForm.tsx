@@ -33,18 +33,22 @@ const AutoCompleteForm = memo(() => {
 
   const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 300), [changeHandler])
 
-
   return (
     <>
-      <form className="j-center d-f">
+      <div className="j-center flex">
         <input
           id="search-form"
           className="w-full"
           onChange={debouncedChangeHandler}
           placeholder="Search by city or state"
           type="text"
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          aria-autocomplete="both"
+          aria-haspopup="false"
         />
-      </form>
+      </div>
       {query !== '' && suggestions.length > 0 && showSuggestion && <Suggestion suggestions={suggestions} />}
       <div className="autoComplete_list absolute">{suggestions.length === 0 && query !== '' && 'No matches...'}</div>
     </>

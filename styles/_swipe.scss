@@ -1,0 +1,45 @@
+.swipe__vertical {
+  flex-direction: column;
+}
+.swipe__item {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+.swipe__dots {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.swipe__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  &:not(:last-child) {
+    margin-right: 6px;
+  }
+}
+.swipe__dots--vertical {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+}
+.swipe__dots--vertical .swipe__dot {
+  &:not(:last-child) {
+    margin-bottom: 6px;
+    margin-right: 0;
+  }
+}
+.swipe__dot--active {
+  background-color: #fff;
+}
+.swipe__nav--inactive {
+  visibility: hidden;
+}
