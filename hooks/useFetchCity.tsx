@@ -18,12 +18,14 @@ const useFetchCity = () => {
   const fetchInitial = useCallback(
     async (cityName: string) => {
       try {
-        const response = await axios.get(`${config.forecast}${cityName}&days=5`)
-        const {location, current, forecast} = response.data
-        await setCurrent(current)
-        await setCurrentCity(location.name)
-        const forecastDaysArray = forecast.forecastday
-        await setForecastday(filterDuplicate(forecastday, location.name, forecastDaysArray))
+        if (cityName) {
+          const response = await axios.get(`${config.forecast}${cityName}&days=5`)
+          const {location, current, forecast} = response.data
+          await setCurrent(current)
+          await setCurrentCity(location.name)
+          const forecastDaysArray = forecast.forecastday
+          await setForecastday(filterDuplicate(forecastday, location.name, forecastDaysArray))
+        }
       } catch (error) {
         throw error
       }

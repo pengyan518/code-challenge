@@ -104,8 +104,7 @@ const useSwipe = (options: SwipeParams) => {
   }
 
   const goToPosition =
-    ({position = 0, disabled = false, swiping = true, offset = 0}: SlideToParams) =>
-    () => {
+    ({position = 0, disabled = false, swiping = true, offset = 0}: SlideToParams) => {
       if (count <= groupLength) return
       const futureOffset = -position * size + offset
       if (swiping) {

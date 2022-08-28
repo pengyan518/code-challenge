@@ -6,16 +6,19 @@ type SuggestionItemProps = {
   name: string
 }
 const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
-  const {setShowSuggestion} = useMainContext()
+  const {setShowSuggestion, swipeCount, swipeGroupLength, goToPositionFn} = useMainContext()
   const {fetchInitial} = useFetchCity()
   const handleClick = useCallback(() => {
-    const indicators = document.querySelectorAll('.swipe__dot')
+    // const indicators = document.querySelectorAll('.swipe__dot')
+    // const indicators = Math.ceil(swipeCount / swipeGroupLength)
     fetchInitial(name)
     // setShowSuggestion(false)
     // document.querySelector('#search-form').value = ''
-    if (indicators && indicators.length) window.goToPosition({position: (indicators.length - 1) * window.groupLength})()
+    if (swipeCount + 1 >= swipeGroupLength) {
+      window.goToPosition({position: (Math.ceil((swipeCount + 1) / swipeGroupLength) - 1) * swipeGroupLength})
+    }
     // if (indicators && indicators.length > 1) window.goToPosition({position: window.count})()
-  }, [fetchInitial, name, setShowSuggestion])
+  }, [fetchInitial, name, setShowSuggestion, swipeCount, swipeGroupLength])
 
   return (
     <li className="hand">

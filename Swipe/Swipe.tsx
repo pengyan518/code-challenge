@@ -10,6 +10,7 @@ import useTouch from '../hooks/Swipe/useTouch'
 import useResize from '../hooks/Swipe/useResize'
 
 import {ChevronLeft, ChevronRight} from '../SvgIcons'
+import {useMainContext} from '../contexts/MainContext'
 
 export interface SwipeRef {
   next: () => void
@@ -49,8 +50,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const {size, root, changeSize} = useRect<HTMLDivElement>([count])
   const itemSize = useMemo(() => (vertical ? size.height : size.width / groupLength), [groupLength, size.height, size.width, vertical])
   const itemKey = useMemo(() => (vertical ? 'height' : 'width'), [vertical])
-  window.count = count
-  window.groupLength = groupLength
+  const {setCurrentIndex, setSwipeGroupLength, setSwipeCount, setGoToPositionFn} = useMainContext()
 
   // core
   const {setRefs, slideTo, next, prev, current, rawCurrent, swipeRef, loopMove, activatedNext, activatedPrev, goToPosition} = useSwipe({
@@ -104,6 +104,12 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     slideTo({swiping: false, step})
     onPlay()
   }
+  useEffect(() => {
+    setCurrentIndex(current)
+    setSwipeCount(count)
+    setSwipeGroupLength(groupLength)
+    // setGoToPositionFn(goToPosition)
+  }, [count, current, goToPosition, groupLength, setCurrentIndex, setGoToPositionFn, setSwipeCount, setSwipeGroupLength])
 
   useEffect(() => {
     if (itemSize) {
@@ -201,7 +207,9 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
             })
           })}
         </div>
-        {showIndicators && <SwipeDots current={current} vertical={vertical} count={count} groupLength={groupLength} goToPosition={goToPosition} />}
+        {showIndicators && (
+          <SwipeDots current={current} vertical={vertical} count={count} groupLength={groupLength} goToPosition={goToPosition} />
+        )}
       </div>
     </div>
   )
