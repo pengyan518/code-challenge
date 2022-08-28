@@ -50,7 +50,16 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const {size, root, changeSize} = useRect<HTMLDivElement>([count])
   const itemSize = useMemo(() => (vertical ? size.height : size.width / groupLength), [groupLength, size.height, size.width, vertical])
   const itemKey = useMemo(() => (vertical ? 'height' : 'width'), [vertical])
-  const {setCurrentIndex, setSwipeGroupLength, setSwipeCount, goToTargetPage, setGoToTargetPage, targetPage} = useMainContext()
+  const {
+    setCurrentIndex,
+    setSwipeGroupLength,
+    setSwipeCount,
+    goToTargetPage,
+    setGoToTargetPage,
+    targetPage,
+    searchResultInStore,
+    setSearchResultInStore,
+  } = useMainContext()
 
   // core
   const {setRefs, slideTo, next, prev, current, rawCurrent, swipeRef, loopMove, activatedNext, activatedPrev, goToPosition} = useSwipe({
@@ -172,18 +181,29 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   })
 
   useEffect(() => {
-    if (goToTargetPage) {
+    if (goToTargetPage && !searchResultInStore) {
       goToPosition({position: (Math.ceil((count + 1) / groupLength) - 1) * groupLength, countExtra: true})
       setGoToTargetPage(false)
     }
     return () => {
       setGoToTargetPage(false)
     }
-  }, [count, goToPosition, goToTargetPage, groupLength, setGoToTargetPage])
+  }, [count, goToPosition, goToTargetPage, groupLength, searchResultInStore, setGoToTargetPage])
 
-  // console.debug('current', current)
-  // console.debug('rawCurrent', rawCurrent)
-  console.debug('count', count)
+  useEffect(() => {
+    if (searchResultInStore) {
+      // const position = targetPage % groupLength === 0 ? targetPage: Math.max(Math.floor((targetPage + 1) / groupLength) - 1, 0) * groupLength
+      const position = targetPage % groupLength === 0 ? targetPage: Math.max(Math.ceil((targetPage + 1) / groupLength) - 1, 0) * groupLength
+      goToPosition({position})
+      // console.debug(`position: ${position} targetPage: ${targetPage}`)
+      setSearchResultInStore(false)
+    }
+    return () => {
+      setSearchResultInStore(false)
+    }
+  }, [count, goToPosition, goToTargetPage, groupLength, searchResultInStore, setGoToTargetPage, setSearchResultInStore, targetPage])
+
+  console.debug('current:', current)
   return (
     <div className="relative w-full">
       <button

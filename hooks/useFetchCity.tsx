@@ -4,16 +4,22 @@ import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
 
 const useFetchCity = () => {
-  const {city, setCurrentCity, forecastday, setForecastday} = useMainContext()
+  const {city, setCurrentCity, forecastday, setForecastday, goToTargetPage, targetPage, setGoToTargetPage, setSearchResultInStore, setTargetPage} = useMainContext()
   const [current, setCurrent] = useState({})
 
-  const filterDuplicate = useCallback((forecastday: any[], currentName: string, newItem: any[]) => {
+  const filterDuplicate = useCallback((forecastday: any, currentName: string, newItem: any[]) => {
     const feeds = forecastday.map(item => item.city)
     if (feeds.includes(currentName)) {
-      return forecastday.filter(item => item !== {city: '', days: []})
+      setSearchResultInStore(true)
+      setTargetPage(feeds.indexOf(currentName))
+      console.debug('currentName', feeds.indexOf(currentName))
+      return forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []})
     }
-    return [...forecastday.filter(item => item !== {city: '', days: []}), {city: currentName, days: newItem}]
-  }, [])
+    return [
+      ...forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []}),
+      {city: currentName, days: newItem},
+    ]
+  }, [setSearchResultInStore, setTargetPage])
 
   const fetchInitial = useCallback(
     async (cityName: string) => {
@@ -24,7 +30,7 @@ const useFetchCity = () => {
           await setCurrent(current)
           await setCurrentCity(location.name)
           const forecastDaysArray = forecast.forecastday
-          await setForecastday(filterDuplicate(forecastday, location.name, forecastDaysArray))
+          setForecastday(filterDuplicate(forecastday, location.name, forecastDaysArray))
         }
       } catch (error) {
         throw error

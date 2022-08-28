@@ -1,5 +1,4 @@
 import {useRef, useState, useMemo, useEffect} from 'react'
-// import {SwipeItemRef} from '../SwipeItem'
 import useRefs from './useRefs'
 
 type SwipeParams = {
