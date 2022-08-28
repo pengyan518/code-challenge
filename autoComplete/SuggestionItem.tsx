@@ -6,19 +6,39 @@ type SuggestionItemProps = {
   name: string
 }
 const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
-  const {setShowSuggestion, swipeCount, swipeGroupLength, targetPage, goToTargetPage, setGoToTargetPage, setTargetPage, searchResultInStore} = useMainContext()
-  const {fetchInitial} = useFetchCity()
+  const {
+    setShowSuggestion,
+    swipeCount,
+    swipeGroupLength,
+    targetPage,
+    goToTargetPage,
+    setGoToTargetPage,
+    setTargetPage,
+    searchResultInStore,
+    setSearchResultInStore,
+    setLimit,
+  } = useMainContext()
+  const {fetchInitial, forecastday, city} = useFetchCity()
   const handleClick = useCallback(() => {
-    fetchInitial(name)
     // setShowSuggestion(false)
     // document.querySelector('#search-form').value = ''
-    if (swipeCount >= swipeGroupLength && !searchResultInStore) {
-      setGoToTargetPage(true)
+
+    const feeds = forecastday.map(item => item.city)
+    if (feeds.includes(name)) {
+      setSearchResultInStore(true)
+      setTargetPage(feeds.indexOf(name))
+    } else if (swipeCount < 20) {
+      fetchInitial(name)
+      if (swipeCount >= swipeGroupLength && !searchResultInStore) {
+        setGoToTargetPage(true)
+      }
+    } else {
+      setLimit(true)
+      alert('Up to 20 Cities!')
     }
-    if(searchResultInStore) {
-      // setTargetPage()
-    }
-  }, [fetchInitial, name, searchResultInStore, setGoToTargetPage, swipeCount, swipeGroupLength])
+    // if(searchResultInStore) {
+    // }
+  }, [fetchInitial, forecastday, name, searchResultInStore, setGoToTargetPage, setSearchResultInStore, setShowSuggestion, swipeCount, swipeGroupLength])
 
   return (
     <li className="hand">
