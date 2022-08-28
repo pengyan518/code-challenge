@@ -17,8 +17,8 @@ const Home: NextPage = () => {
       </Head>
       <MainContext>
         <main className={styles.main}>
-          <Search />
           <Hourly />
+          <Search />
           <Daily />
         </main>
       </MainContext>

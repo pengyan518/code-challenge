@@ -36,7 +36,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const {
     initialSwipe = 0,
     vertical = false,
-    duration = 200,
+    duration = 400,
     autoplay = 3000,
     touchable = true,
     loop = true,
@@ -50,7 +50,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const {size, root, changeSize} = useRect<HTMLDivElement>([count])
   const itemSize = useMemo(() => (vertical ? size.height : size.width / groupLength), [groupLength, size.height, size.width, vertical])
   const itemKey = useMemo(() => (vertical ? 'height' : 'width'), [vertical])
-  const {setCurrentIndex, setSwipeGroupLength, setSwipeCount, setGoToPositionFn} = useMainContext()
+  const {setCurrentIndex, setSwipeGroupLength, setSwipeCount, goToTargetPage, setGoToTargetPage, targetPage} = useMainContext()
 
   // core
   const {setRefs, slideTo, next, prev, current, rawCurrent, swipeRef, loopMove, activatedNext, activatedPrev, goToPosition} = useSwipe({
@@ -109,7 +109,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     setSwipeCount(count)
     setSwipeGroupLength(groupLength)
     // setGoToPositionFn(goToPosition)
-  }, [count, current, goToPosition, groupLength, setCurrentIndex, setGoToPositionFn, setSwipeCount, setSwipeGroupLength])
+  }, [count, current, goToPosition, groupLength, setCurrentIndex, setSwipeCount, setSwipeGroupLength])
 
   useEffect(() => {
     if (itemSize) {
@@ -171,8 +171,18 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     }
   })
 
-  console.debug('current', current)
-  console.debug('rawCurrent', rawCurrent)
+  useEffect(() => {
+    if (goToTargetPage) {
+      goToPosition({position: (Math.ceil((count + 1) / groupLength) - 1) * groupLength, countExtra: true})
+      setGoToTargetPage(false)
+    }
+    return () => {
+      setGoToTargetPage(false)
+    }
+  }, [count, goToPosition, goToTargetPage, groupLength, setGoToTargetPage])
+
+  // console.debug('current', current)
+  // console.debug('rawCurrent', rawCurrent)
   console.debug('count', count)
   return (
     <div className="relative w-full">

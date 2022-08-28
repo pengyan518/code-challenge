@@ -17,6 +17,7 @@ type SlideToParams = Partial<{
   swiping: boolean
   offset: number
   disabled: boolean
+  countExtra: boolean
 }>
 
 interface SwipeItemRef {
@@ -45,7 +46,7 @@ const useSwipe = (options: SwipeParams) => {
   const setStyle = (dom: HTMLDivElement | null, opt: {swiping: boolean; offset: number}) => {
     if (!dom) return
     const {swiping, offset} = opt
-    dom.style.transition = `all ${swiping ? 0.25 : duration}ms`
+    dom.style.transition = `all ${swiping ? 0 : duration}ms`
     dom.style.transform = `translate${vertical ? 'Y' : 'X'}(${offset}px)`
   }
 
@@ -55,7 +56,6 @@ const useSwipe = (options: SwipeParams) => {
       offset: -realCurrent * size,
     })
   }
-
 
   const slideTo = ({step = 0, swiping = false, offset = 0}: SlideToParams) => {
     if (count <= groupLength) return
@@ -103,29 +103,28 @@ const useSwipe = (options: SwipeParams) => {
     setCurrent(futureCurrent)
   }
 
-  const goToPosition =
-    ({position = 0, disabled = false, swiping = true, offset = 0}: SlideToParams) => {
-      if (count <= groupLength) return
-      const futureOffset = -position * size + offset
-      if (swiping) {
-        setStyle(swipeRef.current, {
-          swiping,
-          offset: futureOffset,
-        })
-      } else {
+  const goToPosition = ({position = 0, countExtra = false, swiping = true, offset = 0}: SlideToParams) => {
+    const finalCount = countExtra ? count + 1 : count
+    if (finalCount <= groupLength) return
+    const futureOffset = -position * size + offset
+    if (swiping) {
+      setStyle(swipeRef.current, {
+        swiping,
+        offset: futureOffset,
+      })
+    } else {
+      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setStyle(swipeRef.current, {
-              swiping,
-              offset: futureOffset,
-            })
+          setStyle(swipeRef.current, {
+            swiping,
+            offset: futureOffset,
           })
         })
-      }
-      setCurrent(position)
+      })
     }
-
-
+    setCurrent(position)
+    console.debug(`current position: ${position}`)
+  }
 
   const next = () => {
     resetCurrent()
@@ -158,8 +157,6 @@ const useSwipe = (options: SwipeParams) => {
       prev()
     }
   }
-
-  window.goToPosition = goToPosition
 
   return {
     swipeRef,

@@ -12,7 +12,8 @@ type ReducerProps = {
   currentIndex: number
   swipeGroupLength: number
   swipeCount: number
-  goToPositionFn: (c?: any) => void
+  goToTargetPage: boolean
+  targetPage: number
 }
 type ActionProps = {
   setCurrentCity: (c?: any) => void
@@ -22,7 +23,8 @@ type ActionProps = {
   setCurrentIndex: (c?: any) => void
   setSwipeGroupLength: (c?: any) => void
   setSwipeCount: (c?: any) => void
-  setGoToPositionFn: (c?: any) => void
+  setGoToTargetPage: (c?: any) => void
+  setTargetPage: (c?: any) => void
 }
 const initialStateMain = {
   city: '',
@@ -36,6 +38,8 @@ const initialStateMain = {
   currentIndex: 0,
   swipeGroupLength: 5,
   swipeCount: 0,
+  goToTargetPage: false,
+  targetPage: 0,
   goToPositionFn: (_value: {}) => {},
   setCurrentCity: (_value: string) => {},
   setForecastday: (_value: []) => {},
@@ -44,7 +48,8 @@ const initialStateMain = {
   setCurrentIndex: (_value: {}) => {},
   setSwipeGroupLength: (_value: {}) => {},
   setSwipeCount: (_value: {}) => {},
-  setGoToPositionFn: (_value: {}) => {},
+  setGoToTargetPage: (_value: boolean) => {},
+  setTargetPage: (c?: number) => {},
 }
 
 const GlobalContext = createContext(initialStateMain)
@@ -56,15 +61,36 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const [showSuggestion, setShowSuggestion] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [swipeGroupLength, setSwipeGroupLength] = useState(0)
-  const [goToPositionFn, setGoToPositionFn] = useState((func: any) => {})
+  const [goToTargetPage, setGoToTargetPage] = useState(false)
+  const [targetPage, setTargetPage] = useState(0)
   const [swipeCount, setSwipeCount] = useState(0)
   const [hoursDetail, setHoursDetail] = useState({
     city: '',
     hour: [],
     date: '',
   })
-  const reducer: ReducerProps = {city, forecastday, showSuggestion, hoursDetail, currentIndex, swipeGroupLength, swipeCount, goToPositionFn}
-  const action: ActionProps = {setCurrentCity, setForecastday, setShowSuggestion, setHoursDetail, setCurrentIndex, setSwipeGroupLength, setSwipeCount, setGoToPositionFn}
+  const reducer: ReducerProps = {
+    city,
+    forecastday,
+    showSuggestion,
+    hoursDetail,
+    currentIndex,
+    swipeGroupLength,
+    swipeCount,
+    goToTargetPage,
+    targetPage,
+  }
+  const action: ActionProps = {
+    setCurrentCity,
+    setForecastday,
+    setShowSuggestion,
+    setHoursDetail,
+    setCurrentIndex,
+    setSwipeGroupLength,
+    setSwipeCount,
+    setGoToTargetPage,
+    setTargetPage,
+  }
   return <GlobalContext.Provider value={{...reducer, ...action}}>{children}</GlobalContext.Provider>
 }
 
