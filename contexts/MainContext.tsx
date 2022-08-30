@@ -16,6 +16,7 @@ type ReducerProps = {
   targetPage: number
   searchResultInStore: boolean
   limit: boolean
+  detailPage: boolean
 }
 type ActionProps = {
   setCurrentCity: (c?: any) => void
@@ -29,6 +30,7 @@ type ActionProps = {
   setTargetPage: (c?: any) => void
   setSearchResultInStore: (c?: any) => void
   setLimit: (c?: any) => void
+  setDetailPage: (c?: any) => void
 }
 const initialStateMain = {
   city: '',
@@ -46,6 +48,7 @@ const initialStateMain = {
   targetPage: 0,
   searchResultInStore: false,
   limit: false,
+  detailPage: false,
   setCurrentCity: (_value: string) => {},
   setForecastday: (_value: []) => {},
   setShowSuggestion: (_value: boolean) => {},
@@ -57,6 +60,7 @@ const initialStateMain = {
   setTargetPage: (c?: number) => {},
   setSearchResultInStore: (c?: boolean) => {},
   setLimit: (c?: boolean) => {},
+  setDetailPage: (c?: boolean) => {},
 }
 
 const GlobalContext = createContext(initialStateMain)
@@ -73,6 +77,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const [swipeCount, setSwipeCount] = useState(0)
   const [searchResultInStore, setSearchResultInStore] = useState(false)
   const [limit, setLimit] = useState(false)
+  const [detailPage, setDetailPage] = useState(false)
   const [hoursDetail, setHoursDetail] = useState({
     city: '',
     hour: [],
@@ -90,6 +95,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     targetPage,
     searchResultInStore,
     limit,
+    detailPage,
   }
   const action: ActionProps = {
     setCurrentCity,
@@ -103,6 +109,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     setTargetPage,
     setSearchResultInStore,
     setLimit,
+    setDetailPage,
   }
   return <GlobalContext.Provider value={{...reducer, ...action}}>{children}</GlobalContext.Provider>
 }

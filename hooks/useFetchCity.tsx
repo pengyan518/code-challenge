@@ -4,16 +4,10 @@ import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
 
 const useFetchCity = () => {
-  const {city, setCurrentCity, forecastday, setForecastday, goToTargetPage, targetPage, setGoToTargetPage, setSearchResultInStore, setTargetPage} = useMainContext()
+  const {city, setCurrentCity, forecastday, setForecastday} = useMainContext()
   const [current, setCurrent] = useState({})
 
   const filterDuplicate = useCallback((forecastday: any, currentName: string, newItem: any[]) => {
-    // const feeds = forecastday.map(item => item.city)
-    // if (feeds.includes(currentName)) {
-    //   setSearchResultInStore(true)
-    //   setTargetPage(feeds.indexOf(currentName))
-    //   return forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []})
-    // }
     return [
       ...forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []}),
       {city: currentName, days: newItem},

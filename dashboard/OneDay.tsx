@@ -11,15 +11,17 @@ const OneDay = (props: DayProps) => {
   const {date, date_epoch, day, hour} = props.oneDay
   const {maxtemp_f, mintemp_f, condition} = day
 
-  const {hoursDetail, setHoursDetail} = useMainContext()
+  const {hoursDetail, setHoursDetail, detailPage, setDetailPage} = useMainContext()
 
   const showHours = useCallback(() => {
+    setDetailPage(true)
     setHoursDetail({
       city: props.city,
       hour,
       date,
     })
-  }, [date, hour, props.city, setHoursDetail])
+  }, [date, hour, props.city, setDetailPage, setHoursDetail])
+
   return (
     <a key={date_epoch} className={`${styles.card} text-center`} onClick={showHours}>
       <div className="text-sm">{date}</div>

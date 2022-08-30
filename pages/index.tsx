@@ -2,10 +2,8 @@ import type {NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import {Daily} from '../dashboard/Daily'
 import {MainContext} from '../contexts/MainContext'
-import {Search} from '../dashboard/Search'
-import {Hourly} from '../dashboard/Hourly'
+import MainHome from "../templates/MainHome";
 
 const Home: NextPage = () => {
   return (
@@ -16,13 +14,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContext>
-        <main className={styles.main}>
-          <Hourly />
-          <Search />
-          <Daily />
-        </main>
+        <MainHome />
       </MainContext>
-
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
