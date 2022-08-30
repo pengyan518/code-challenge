@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import {CityDays} from './CityDays'
 import {useMainContext} from '../contexts/MainContext'
 
-const Daily = () => {
+const Dashboard = () => {
   const {forecastday} = useMainContext()
 
   return (
@@ -13,4 +13,4 @@ const Daily = () => {
   )
 }
 
-export {Daily}
+export {Dashboard}

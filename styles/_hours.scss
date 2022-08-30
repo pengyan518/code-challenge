@@ -1,6 +1,10 @@
 .grid-wrapper {
   display: grid;
 }
+.hours-grid-wrapper {
+  width: 80%;
+  overflow: auto;
+}
 .hours-grid {
   grid-template-columns: repeat(12, 1fr);
 }

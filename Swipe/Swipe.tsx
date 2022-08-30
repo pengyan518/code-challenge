@@ -9,7 +9,7 @@ import useEventListener from '../hooks/Swipe/useEventListener'
 import useTouch from '../hooks/Swipe/useTouch'
 import useResize from '../hooks/Swipe/useResize'
 
-import {ChevronLeft, ChevronRight} from '../SvgIcons'
+import {ChevronLeft, ChevronRight} from '../icons'
 import {useMainContext} from '../contexts/MainContext'
 
 export interface SwipeRef {

@@ -15,7 +15,7 @@ const fetchIp = async () => {
     const result = response.data
     return result.ip
   } catch (error) {
-    throw new Error(`IpFetcher unable to fetch: ${error.message}`)
+    // throw new Error(`IpFetcher unable to fetch: ${error.message}`)
   }
 }
 const useGeolocation = () => {

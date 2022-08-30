@@ -1,15 +1,15 @@
 import styles from '../styles/Home.module.css'
-import {Daily} from '../dashboard/Daily'
+import {Dashboard} from '../dashboard/Dashboard'
 import {MainContext, useMainContext} from '../contexts/MainContext'
-import {Search} from '../dashboard/Search'
-import {Hourly} from '../dashboard/Hourly'
+import {Search} from '../search/Search'
+import {Current} from '../current/Current'
 
 const MainHome = () => {
   const {detailPage, setDetailPage} = useMainContext()
   return (
     <main className={styles.main}>
       <Search />
-      {detailPage ? <Hourly /> : <Daily />}
+      {detailPage ? <Current /> : <Dashboard />}
     </main>
   )
 }

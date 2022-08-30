@@ -4,12 +4,12 @@ import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
 
 const useFetchCity = () => {
-  const {city, setCurrentCity, forecastday, setForecastday, setHoursDetail, setDetailPage} = useMainContext()
+  const {city, setCurrentCity, forecastday, setForecastday, setHoursDetail} = useMainContext()
   const [current, setCurrent] = useState({})
+  const [location, setLocation] = useState({})
 
   const showHours = useCallback(
     (name: string, hour: any[], date: string) => {
-      // setDetailPage(true)
       setHoursDetail({
         city: name,
         hour,
@@ -30,6 +30,7 @@ const useFetchCity = () => {
           const response = await axios.get(`${config.forecast}${query}&days=5`)
           const {location, current, forecast} = response.data
           await setCurrent(current)
+          await setLocation(location)
           await setCurrentCity(location.name)
           const forecastDaysArray = forecast.forecastday
           setForecastday(filterEmpty(forecastday, location.name, forecastDaysArray))
@@ -42,7 +43,7 @@ const useFetchCity = () => {
     [filterEmpty, forecastday, setCurrentCity, setForecastday, showHours]
   )
 
-  return {fetchInitial, forecastday, city, current, setCurrentCity}
+  return {fetchInitial, forecastday, city, current, location, setCurrentCity}
 }
 
 export {useFetchCity}

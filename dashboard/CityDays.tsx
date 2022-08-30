@@ -10,6 +10,7 @@ type CityDaysProps = {
 
 const CityDays = (props: CityDaysProps) => {
   const swipeRef = useRef<SwipeRef>(null)
+  console.debug('props.forecastday', props.forecastday)
   return (
     <Swipe ref={swipeRef} autoplay={0}>
       {props.forecastday &&
