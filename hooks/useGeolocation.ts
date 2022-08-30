@@ -1,4 +1,7 @@
 import {useCallback, useEffect, useState} from 'react'
+import axios from 'axios'
+import {useMainContext} from '../contexts/MainContext'
+import config from '../config'
 
 const options = {
   enableHighAccuracy: true,
@@ -6,26 +9,32 @@ const options = {
   maximumAge: 30000,
 }
 
+const fetchIp = async () => {
+  try {
+    const response = await axios.get(config.ipFetcher)
+    const result = response.data
+    return result.ip
+  } catch (error) {
+    throw new Error(`IpFetcher unable to fetch: ${error.message}`)
+  }
+}
 const useGeolocation = () => {
-  const [lat, setLat] = useState(0)
-  const [long, setLong] = useState(0)
+  const {coordinatesDone, setCoordinatesDone, coordinates, setCoordinates, ip, setIp} = useMainContext()
 
   const getCoords: () => Promise<unknown> = () => {
     return new Promise((resolve, reject) => {
-      const error = (err: {code: string; message: string}) => {
-        console.warn(`ERROR(${err.code}): ${err.message}`)
-        reject(`reject Reason: ${err.message}`)
+      const error = async (err: {code: string; message: string}) => {
+        console.debug(`reject Reason: ${err.message}`)
+        const ip = await fetchIp()
+        reject(ip)
       }
 
       if ('geolocation' in navigator) {
         const success = (pos: {coords: any}) => {
           const crd = pos.coords
-          // console.debug(crd.latitude, crd.longitude)
-          // setLat(crd.latitude)
-          // setLong(crd.longitude)
           const city = {
-            lt: crd.latitude,
-            lg: crd.longitude,
+            lat: crd.latitude,
+            long: crd.longitude,
           }
           navigator.geolocation.clearWatch(id)
           resolve(city)
@@ -38,16 +47,23 @@ const useGeolocation = () => {
   }
 
   const saveCoords = useCallback(async () => {
-    const {lt, lg} = await getCoords()
-    setLat(lt)
-    setLong(lg)
-  }, [])
+    try {
+      const city = await getCoords()
+      setCoordinates(city)
+    } catch (ip) {
+      setIp(ip)
+      console.debug(ip)
+    }
+  }, [setCoordinates, setIp])
 
   useEffect(() => {
-    if (lat === 0 && long === 0) saveCoords
-  }, [lat, long, saveCoords])
+    if (coordinates.lat === Infinity && coordinates.long === Infinity && !coordinatesDone) {
+      saveCoords()
+      setCoordinatesDone(true)
+    }
+  }, [coordinates.lat, coordinates.long, coordinatesDone, saveCoords, setCoordinatesDone])
 
-  return [lat, long]
+  return {coordinates, ip}
 }
 
 export default useGeolocation

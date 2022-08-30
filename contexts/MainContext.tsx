@@ -17,6 +17,9 @@ type ReducerProps = {
   searchResultInStore: boolean
   limit: boolean
   detailPage: boolean
+  coordinatesDone: boolean
+  coordinates: {}
+  ip: any
 }
 type ActionProps = {
   setCurrentCity: (c?: any) => void
@@ -31,6 +34,9 @@ type ActionProps = {
   setSearchResultInStore: (c?: any) => void
   setLimit: (c?: any) => void
   setDetailPage: (c?: any) => void
+  setCoordinatesDone: (c?: any) => void
+  setCoordinates: (c?: any) => void
+  setIp: (c?: any) => void
 }
 const initialStateMain = {
   city: '',
@@ -49,6 +55,12 @@ const initialStateMain = {
   searchResultInStore: false,
   limit: false,
   detailPage: false,
+  coordinatesDone: false,
+  coordinates: {
+    lat: 0,
+    long: 0,
+  },
+  ip: null,
   setCurrentCity: (_value: string) => {},
   setForecastday: (_value: []) => {},
   setShowSuggestion: (_value: boolean) => {},
@@ -61,6 +73,9 @@ const initialStateMain = {
   setSearchResultInStore: (c?: boolean) => {},
   setLimit: (c?: boolean) => {},
   setDetailPage: (c?: boolean) => {},
+  setCoordinatesDone: (c?: boolean) => {},
+  setCoordinates: (c?: unknown) => {},
+  setIp: (c?: unknown) => {},
 }
 
 const GlobalContext = createContext(initialStateMain)
@@ -77,12 +92,19 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const [swipeCount, setSwipeCount] = useState(0)
   const [searchResultInStore, setSearchResultInStore] = useState(false)
   const [limit, setLimit] = useState(false)
-  const [detailPage, setDetailPage] = useState(false)
+  const [detailPage, setDetailPage] = useState(true)
+  const [coordinatesDone, setCoordinatesDone] = useState(false)
+  const [coordinates, setCoordinates] = useState({
+    lat: Infinity,
+    long: Infinity,
+  })
+  const [ip, setIp] = useState(null)
   const [hoursDetail, setHoursDetail] = useState({
     city: '',
     hour: [],
     date: '',
   })
+
   const reducer: ReducerProps = {
     city,
     forecastday,
@@ -96,6 +118,9 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     searchResultInStore,
     limit,
     detailPage,
+    coordinatesDone,
+    coordinates,
+    ip,
   }
   const action: ActionProps = {
     setCurrentCity,
@@ -110,6 +135,9 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     setSearchResultInStore,
     setLimit,
     setDetailPage,
+    setCoordinatesDone,
+    setCoordinates,
+    setIp,
   }
   return <GlobalContext.Provider value={{...reducer, ...action}}>{children}</GlobalContext.Provider>
 }

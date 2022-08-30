@@ -6,4 +6,5 @@ export default Object.freeze({
   forecast: `${prefix}&q=`,
   search: `${prefixSearch}&q=`,
   xlmns: 'http://www.w3.org/2000/svg',
+  ipFetcher: 'https://api.ipify.org/?format=json',
 })

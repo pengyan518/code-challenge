@@ -1,16 +1,33 @@
-import {ReactNode, useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useMainContext} from '../contexts/MainContext'
 import {useFetchCity} from '../hooks/useFetchCity'
-
+import useGeolocation from '../hooks/useGeolocation'
 
 const Hourly = () => {
   const {hoursDetail, setDetailPage} = useMainContext()
+  const {coordinates, ip} = useGeolocation()
+  const {fetchInitial, forecastday, city} = useFetchCity()
   const handleBack = useCallback(() => {
     setDetailPage(false)
   }, [setDetailPage])
+
+  useEffect(() => {
+    if (forecastday.length === 0) {
+      if (coordinates.lat !== Infinity && coordinates.long !== Infinity) {
+        fetchInitial(`${coordinates.lat},${coordinates.long}`)
+      } else if(ip) {
+        fetchInitial(ip)
+      }
+    }
+
+    return () => {}
+  }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip])
+
   return (
     <div className="grid mx-auto w-full">
-      <div className="cursor-pointer" onClick={handleBack}>Back to Cities</div>
+      <div className="cursor-pointer" onClick={handleBack}>
+        Go to Cities
+      </div>
       {hoursDetail.city} {hoursDetail.date}
       <div className="hours-grid grid">
         {hoursDetail.hour.length > 0 &&
@@ -22,7 +39,7 @@ const Hourly = () => {
                 <div key={time_epoch}>
                   <div>{time.split(' ')[1]}</div>
                   <div>{temp_f}°</div>
-                  <img src={`https://${condition.icon}`} alt="" width={24} height={24} />
+                  <img src={`https://${condition.icon}`} alt="" width={48} height={48} />
                 </div>
               )
             })}
