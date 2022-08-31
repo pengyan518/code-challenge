@@ -33,7 +33,6 @@ const OneDay = (props: DayProps) => {
   return (
     <a key={date_epoch} className={`${styles.card} text-center`} onClick={fetchDetails}>
       <div className="text-sm">{date}</div>
-      {/*<div>{condition.text}</div>*/}
       {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={48} height={48} />}
       <p>
         {maxtemp_f}° {mintemp_f}°

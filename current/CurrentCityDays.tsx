@@ -1,18 +1,15 @@
 import {useMemo} from 'react'
 import {OneDay} from '../dashboard/OneDay'
 import {useMainContext} from '../contexts/MainContext'
-import {Simulate} from 'react-dom/test-utils'
-import input = Simulate.input
+
 
 type CityDaysProps = {
-  location: {
-    name: string
-  }
+  city: string
 }
 
 const CurrentCityDays = (props: CityDaysProps) => {
   const {forecastday} = useMainContext()
-  const oneCity = useMemo(() => forecastday.filter(city => city.city === props.location.name)[0], [forecastday, props.location.name])
+  const oneCity = useMemo(() => forecastday.filter(city => city.city === props.city)[0], [forecastday, props.city])
 
   return (
     <div key={oneCity.city}>

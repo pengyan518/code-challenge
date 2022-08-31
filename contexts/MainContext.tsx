@@ -21,7 +21,9 @@ interface ReducerProps {
   current: {}
   future: boolean
   futureInfo: FuturePros
-  location: {}
+  location: {
+    name: string
+  }
   forecastday: any[]
   showSuggestion: boolean
   hoursDetail: HoursDetailPros
@@ -68,7 +70,9 @@ const initialStateMain: ReducerProps & ActionProps = {
     day: {},
     date: '',
   },
-  location: '',
+  location: {
+    name: ''
+  },
   forecastday: [],
   showSuggestion: false,
   hoursDetail: {

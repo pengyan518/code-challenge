@@ -28,9 +28,9 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
   )
 
   const handleClick = useCallback(() => {
-    setShowSuggestion(false)
+    // setShowSuggestion(false)
     // @ts-ignore
-    document.querySelector('#search-form').value = ''
+    // document.querySelector('#search-form').value = ''
 
     const feeds = forecastday.map(item => item.city)
     if (feeds.includes(name)) {

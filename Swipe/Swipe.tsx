@@ -48,8 +48,9 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const touch = useTouch()
   const count = useMemo(() => React.Children.count(props.children), [props.children])
   const {size, root, changeSize} = useRect<HTMLDivElement>([count])
-  const itemSize = useMemo(() => (vertical ? size.height : size.width / groupLength), [groupLength, size.height, size.width, vertical])
+  const itemSize = useMemo(() => (vertical ? 140 : size.width / groupLength), [groupLength, size.width, vertical])
   const itemKey = useMemo(() => (vertical ? 'height' : 'width'), [vertical])
+  const gridTemplateKey = useMemo(() => (vertical ? 'grid-template-rows' : 'grid-template-columns'), [vertical])
   const {
     setCurrentIndex,
     setSwipeGroupLength,
@@ -74,9 +75,9 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   const wrapperStyle = useMemo(
     () => ({
       [itemKey]: itemSize * count,
-      gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))`,
+      [gridTemplateKey]: `repeat(${count}, minmax(0, ${itemSize}px))`,
     }),
-    [itemKey, itemSize, count]
+    [itemKey, itemSize, count, gridTemplateKey]
   )
 
   const onPlay = () => {
@@ -203,7 +204,6 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     }
   }, [count, goToPosition, goToTargetPage, groupLength, searchResultInStore, setGoToTargetPage, setSearchResultInStore, targetPage])
 
-  console.debug('current:', current)
   return (
     <div className="relative w-full">
       <button

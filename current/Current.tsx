@@ -27,8 +27,6 @@ const Current = () => {
   }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current, location])
 
 
-  console.debug(forecastday)
-
   if(forecastday.length === 0) {
     return <div>Loading...</div>
   }
@@ -44,7 +42,7 @@ const Current = () => {
         )}
         {future && <FutureCondition location={location} />}
         <Hourly />
-        <CurrentCityDays location={location} />
+        <CurrentCityDays city={location.name} />
       </div>
     </div>
   )
