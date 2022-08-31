@@ -45,8 +45,8 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
       showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
     } else if (swipeCount < 20) {
       fetchInitial(name)
-      const cityIndex = forecastday.length - 1
-      showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
+      // const cityIndex = forecastday.length - 1
+      // showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
       // if (swipeCount >= swipeGroupLength && !searchResultInStore) {
       //   setGoToTargetPage(true)
       // }
@@ -69,19 +69,7 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
     //   setLimit(true)
     //   alert('Up to 20 Cities!')
     // }
-  }, [
-    fetchInitial,
-    forecastday,
-    name,
-    searchResultInStore,
-    setGoToTargetPage,
-    setLimit,
-    setSearchResultInStore,
-    setShowSuggestion,
-    setTargetPage,
-    swipeCount,
-    swipeGroupLength,
-  ])
+  }, [fetchInitial, forecastday, name, setLimit, setShowSuggestion, showHours, swipeCount])
 
   return (
     <li className="hand">

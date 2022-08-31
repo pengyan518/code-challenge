@@ -6,9 +6,9 @@ import {Hourly} from './Hourly'
 import {Condition} from './Condition'
 
 const Current = () => {
-  const {setDetailPage} = useMainContext()
+  const {setDetailPage, current, location, forecastday} = useMainContext()
   const {coordinates, ip} = useGeolocation()
-  const {fetchInitial, forecastday, city, current, location} = useFetchCity()
+  const {fetchInitial, city} = useFetchCity()
 
   const handleBack = useCallback(() => {
     setDetailPage(false)
@@ -23,9 +23,12 @@ const Current = () => {
       }
     }
     console.debug('current', current)
+    console.debug('location', location)
 
-    return () => {}
-  }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current])
+    return () => {
+
+    }
+  }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current, location])
 
   return (
     <div className="grid mx-auto w-full">

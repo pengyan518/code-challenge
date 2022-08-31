@@ -4,9 +4,7 @@ import config from '../config'
 import {useMainContext} from '../contexts/MainContext'
 
 const useFetchCity = () => {
-  const {city, setCurrentCity, forecastday, setForecastday, setHoursDetail} = useMainContext()
-  const [current, setCurrent] = useState({})
-  const [location, setLocation] = useState({})
+  const {city, setCurrentCity, forecastday, setForecastday, setHoursDetail, current, setCurrent, location, setLocation} = useMainContext()
 
   const showHours = useCallback(
     (name: string, hour: any[], date: string) => {
@@ -19,8 +17,8 @@ const useFetchCity = () => {
     [setHoursDetail]
   )
 
-  const filterEmpty = useCallback((forecastday: any, currentName: string, newItem: any[]) => {
-    return [...forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []}), {city: currentName, days: newItem}]
+  const filterEmpty = useCallback((forecastday: any, currentName: string, newItem: any[], current: any, location: any) => {
+    return [...forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []}), {city: currentName, days: newItem, current, location}]
   }, [])
 
   const fetchInitial = useCallback(
@@ -29,21 +27,22 @@ const useFetchCity = () => {
         if (query) {
           const response = await axios.get(`${config.forecast}${query}&days=5`)
           const {location, current, forecast} = response.data
-          await setCurrent(current)
-          await setLocation(location)
-          await setCurrentCity(location.name)
+          setCurrent(current)
+          setLocation(location)
+          setCurrentCity(location.name)
           const forecastDaysArray = forecast.forecastday
-          setForecastday(filterEmpty(forecastday, location.name, forecastDaysArray))
+          setForecastday(filterEmpty(forecastday, location.name, forecastDaysArray, current, location))
           showHours(location.name, forecastDaysArray[0].hour, forecastDaysArray[0].date)
         }
       } catch (error) {
         throw error
       }
     },
-    [filterEmpty, forecastday, setCurrentCity, setForecastday, showHours]
+    [filterEmpty, forecastday, setCurrent, setCurrentCity, setForecastday, setLocation, showHours]
   )
 
-  return {fetchInitial, forecastday, city, current, location, setCurrentCity}
+
+  return {fetchInitial, forecastday, city, setCurrentCity}
 }
 
 export {useFetchCity}

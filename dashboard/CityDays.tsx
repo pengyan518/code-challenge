@@ -18,7 +18,7 @@ const CityDays = (props: CityDaysProps) => {
           return (
             <SwipeItem key={oneCity.city}>
               <div className="grid-wrapper w-full">
-                <div className="a-center">{oneCity.city}</div>
+                <div class Name="a-center">{oneCity.city}</div>
                 {oneCity.days.length > 0 &&
                   oneCity.days.map((oneDay: {date_epoch: string}) => (
                     <OneDay key={oneDay.date_epoch} oneDay={oneDay} city={oneCity.city} />

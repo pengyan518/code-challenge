@@ -6,6 +6,8 @@ type ContextProps = {
 
 type ReducerProps = {
   city: string
+  current: {}
+  location: {}
   forecastday: any[]
   showSuggestion: boolean
   hoursDetail: {}
@@ -23,6 +25,8 @@ type ReducerProps = {
 }
 type ActionProps = {
   setCurrentCity: (c?: any) => void
+  setCurrent: (c?: any) => void
+  setLocation: (c?: any) => void
   setForecastday: (c?: any) => void
   setShowSuggestion: (c?: any) => void
   setHoursDetail: (c?: any) => void
@@ -40,6 +44,8 @@ type ActionProps = {
 }
 const initialStateMain = {
   city: '',
+  current: '',
+  location: '',
   forecastday: [],
   showSuggestion: false,
   hoursDetail: {
@@ -62,6 +68,8 @@ const initialStateMain = {
   },
   ip: null,
   setCurrentCity: (_value: string) => {},
+  setCurrent: (_value: string) => {},
+  setLocation: (_value: string) => {},
   setForecastday: (_value: []) => {},
   setShowSuggestion: (_value: boolean) => {},
   setHoursDetail: (_value: {}) => {},
@@ -83,6 +91,8 @@ const useMainContext = () => useContext(GlobalContext)
 
 const MainContext: React.FC<ContextProps> = ({children}) => {
   const [city, setCurrentCity] = useState('12771')
+  const [current, setCurrent] = useState({})
+  const [location, setLocation] = useState({})
   const [forecastday, setForecastday] = useState([])
   const [showSuggestion, setShowSuggestion] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -107,6 +117,8 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
 
   const reducer: ReducerProps = {
     city,
+    current,
+    location,
     forecastday,
     showSuggestion,
     hoursDetail,
@@ -124,6 +136,8 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   }
   const action: ActionProps = {
     setCurrentCity,
+    setCurrent,
+    setLocation,
     setForecastday,
     setShowSuggestion,
     setHoursDetail,
