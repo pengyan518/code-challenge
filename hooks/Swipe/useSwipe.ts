@@ -122,7 +122,6 @@ const useSwipe = (options: SwipeParams) => {
       })
     }
     setCurrent(position)
-    console.debug(`current position: ${position}`)
   }
 
   const next = () => {

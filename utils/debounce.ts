@@ -8,9 +8,11 @@
  */
 
 function debounce(func: any, wait: number, immediate?: boolean) {
-  let timeout
+  let timeout: any
   return function() {
-    let context = this, args = arguments
+    // @ts-ignore
+    const context = this
+    const args = arguments
     let later = function() {
       timeout = null
       if (!immediate) func.apply(context, args)

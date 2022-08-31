@@ -3,14 +3,28 @@ import React, {createContext, useContext, useState, ReactNode} from 'react'
 type ContextProps = {
   children?: ReactNode
 }
-
-type ReducerProps = {
+interface FuturePros {
+  day: any
+  date: string
+}
+interface HoursDetailPros {
+  city: string
+  hour: any
+  date: string
+}
+interface CoordinatesProps {
+  lat: number
+  long: number
+}
+interface ReducerProps {
   city: string
   current: {}
+  future: boolean
+  futureInfo: FuturePros
   location: {}
   forecastday: any[]
   showSuggestion: boolean
-  hoursDetail: {}
+  hoursDetail: HoursDetailPros
   currentIndex: number
   swipeGroupLength: number
   swipeCount: number
@@ -20,12 +34,14 @@ type ReducerProps = {
   limit: boolean
   detailPage: boolean
   coordinatesDone: boolean
-  coordinates: {}
+  coordinates: CoordinatesProps
   ip: any
 }
-type ActionProps = {
+interface ActionProps {
   setCurrentCity: (c?: any) => void
   setCurrent: (c?: any) => void
+  setFuture: (c?: any) => void
+  setFutureInfo: (c?: any) => void
   setLocation: (c?: any) => void
   setForecastday: (c?: any) => void
   setShowSuggestion: (c?: any) => void
@@ -42,9 +58,16 @@ type ActionProps = {
   setCoordinates: (c?: any) => void
   setIp: (c?: any) => void
 }
-const initialStateMain = {
+
+
+const initialStateMain: ReducerProps & ActionProps = {
   city: '',
   current: '',
+  future: false,
+  futureInfo: {
+    day: {},
+    date: '',
+  },
   location: '',
   forecastday: [],
   showSuggestion: false,
@@ -63,12 +86,14 @@ const initialStateMain = {
   detailPage: false,
   coordinatesDone: false,
   coordinates: {
-    lat: 0,
-    long: 0,
+    lat: Infinity,
+    long: Infinity,
   },
   ip: null,
   setCurrentCity: (_value: string) => {},
   setCurrent: (_value: string) => {},
+  setFuture: (c?: any) => {},
+  setFutureInfo: (c?: any) => {},
   setLocation: (_value: string) => {},
   setForecastday: (_value: []) => {},
   setShowSuggestion: (_value: boolean) => {},
@@ -85,13 +110,14 @@ const initialStateMain = {
   setCoordinates: (c?: unknown) => {},
   setIp: (c?: unknown) => {},
 }
-
 const GlobalContext = createContext(initialStateMain)
 const useMainContext = () => useContext(GlobalContext)
 
 const MainContext: React.FC<ContextProps> = ({children}) => {
   const [city, setCurrentCity] = useState('12771')
   const [current, setCurrent] = useState({})
+  const [future, setFuture] = useState(false)
+  const [futureInfo, setFutureInfo] = useState<FuturePros>({date: '', day: undefined})
   const [location, setLocation] = useState({})
   const [forecastday, setForecastday] = useState([])
   const [showSuggestion, setShowSuggestion] = useState(false)
@@ -104,12 +130,12 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const [limit, setLimit] = useState(false)
   const [detailPage, setDetailPage] = useState(true)
   const [coordinatesDone, setCoordinatesDone] = useState(false)
-  const [coordinates, setCoordinates] = useState({
+  const [coordinates, setCoordinates] = useState<CoordinatesProps>({
     lat: Infinity,
     long: Infinity,
   })
   const [ip, setIp] = useState(null)
-  const [hoursDetail, setHoursDetail] = useState({
+  const [hoursDetail, setHoursDetail] = useState<HoursDetailPros>({
     city: '',
     hour: [],
     date: '',
@@ -118,6 +144,8 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const reducer: ReducerProps = {
     city,
     current,
+    future,
+    futureInfo,
     location,
     forecastday,
     showSuggestion,
@@ -137,6 +165,8 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const action: ActionProps = {
     setCurrentCity,
     setCurrent,
+    setFuture,
+    setFutureInfo,
     setLocation,
     setForecastday,
     setShowSuggestion,

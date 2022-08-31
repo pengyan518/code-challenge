@@ -227,11 +227,13 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
         onTouchEnd={onTouchEnd}
         style={props.style}
         className="mx-auto relative overflow-hidden ml-4 mr-0 md:ml-14 md:mr-12 my-4 w-full">
+         {/*  @ts-ignore */}
         <div ref={swipeRef} style={wrapperStyle} count={count} className="grid gap-4 md:gap-6 2xl:gap-8">
           {React.Children.map(props.children, (child, index) => {
             if (!React.isValidElement(child)) return null
             if (child.type !== SwipeItem) return null
             return React.cloneElement(child, {
+              // @ts-ignore
               vertical,
               ref: setRefs(index),
             })

@@ -7,7 +7,7 @@ import {Current} from '../current/Current'
 const MainHome = () => {
   const {detailPage, setDetailPage} = useMainContext()
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} mx-auto`}>
       <Search />
       {detailPage ? <Current /> : <Dashboard />}
     </main>

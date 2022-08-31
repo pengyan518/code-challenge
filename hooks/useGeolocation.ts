@@ -39,6 +39,7 @@ const useGeolocation = () => {
           navigator.geolocation.clearWatch(id)
           resolve(city)
         }
+        // @ts-ignore
         const id = navigator.geolocation.watchPosition(success, error, options)
       } else {
         reject(`No geolocation`)

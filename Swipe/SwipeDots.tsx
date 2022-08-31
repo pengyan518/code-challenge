@@ -5,7 +5,7 @@ interface SwipeDotsProps {
   count: number
   groupLength: number
   vertical: boolean
-  goToPosition: (p: {position: number}) => void
+  goToPosition: (p: {disabled: boolean; position: number}) => void
 }
 
 const SwipeDots: React.FC<SwipeDotsProps> = props => {

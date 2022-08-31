@@ -10,7 +10,6 @@ type CityDaysProps = {
 
 const CityDays = (props: CityDaysProps) => {
   const swipeRef = useRef<SwipeRef>(null)
-  console.debug('props.forecastday', props.forecastday)
   return (
     <Swipe ref={swipeRef} autoplay={0}>
       {props.forecastday &&
@@ -18,7 +17,7 @@ const CityDays = (props: CityDaysProps) => {
           return (
             <SwipeItem key={oneCity.city}>
               <div className="grid-wrapper w-full">
-                <div class Name="a-center">{oneCity.city}</div>
+                <div className="a-center">{oneCity.city}</div>
                 {oneCity.days.length > 0 &&
                   oneCity.days.map((oneDay: {date_epoch: string}) => (
                     <OneDay key={oneDay.date_epoch} oneDay={oneDay} city={oneCity.city} />

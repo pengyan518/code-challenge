@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {MainContext} from '../contexts/MainContext'
-import MainHome from "../templates/MainHome";
+import MainHome from '../templates/MainHome'
 
 const Home: NextPage = () => {
   return (

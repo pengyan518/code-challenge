@@ -7,8 +7,8 @@ const Hourly = () => {
       {hoursDetail.hour.length > 0 && (
         <div className="hours-grid grid" style={{width: 12 * 100}}>
           {hoursDetail.hour
-            .filter((hour, index) => index < 12)
-            .map(oneHour => {
+            .filter((hour: any, index: number) => index < 12)
+            .map((oneHour: {condition: any; temp_f: any; time_epoch: any; time: any}) => {
               const {condition, temp_f, time_epoch, time} = oneHour
               return (
                 <div key={time_epoch}>

@@ -9,34 +9,27 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
   const {
     setShowSuggestion,
     swipeCount,
-    swipeGroupLength,
-    targetPage,
-    goToTargetPage,
-    setGoToTargetPage,
-    setTargetPage,
-    searchResultInStore,
-    setSearchResultInStore,
     setLimit,
-    hoursDetail,
     setHoursDetail,
-    detailPage,
     setDetailPage,
   } = useMainContext()
   const {fetchInitial, forecastday, city} = useFetchCity()
 
-  const showHours = useCallback((hour, date) => {
-    setDetailPage(true)
-    setHoursDetail({
-      city: name,
-      hour,
-      date,
-    })
-  }, [name, setDetailPage, setHoursDetail])
-
-  console.debug('forecastday', forecastday)
+  const showHours = useCallback(
+    (hour: any, date: any) => {
+      setDetailPage(true)
+      setHoursDetail({
+        city: name,
+        hour,
+        date,
+      })
+    },
+    [name, setDetailPage, setHoursDetail]
+  )
 
   const handleClick = useCallback(() => {
     setShowSuggestion(false)
+    // @ts-ignore
     document.querySelector('#search-form').value = ''
 
     const feeds = forecastday.map(item => item.city)
@@ -45,11 +38,6 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
       showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
     } else if (swipeCount < 20) {
       fetchInitial(name)
-      // const cityIndex = forecastday.length - 1
-      // showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
-      // if (swipeCount >= swipeGroupLength && !searchResultInStore) {
-      //   setGoToTargetPage(true)
-      // }
     } else {
       setLimit(true)
       alert('Up to 20 Cities!')

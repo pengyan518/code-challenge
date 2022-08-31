@@ -18,6 +18,7 @@ const useFetchCity = () => {
   )
 
   const filterEmpty = useCallback((forecastday: any, currentName: string, newItem: any[], current: any, location: any) => {
+    // @ts-ignore
     return [...forecastday.filter((item: {city: string; days: any[]}) => item !== {city: '', days: []}), {city: currentName, days: newItem, current, location}]
   }, [])
 
