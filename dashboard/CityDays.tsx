@@ -1,4 +1,4 @@
-import {Key, ReactNode, useEffect, useRef, useState} from 'react'
+import {useRef} from 'react'
 
 import {OneDay} from './OneDay'
 import Swipe, {SwipeRef} from '../Swipe/Swipe'
@@ -13,7 +13,7 @@ const CityDays = (props: CityDaysProps) => {
   return (
     <Swipe ref={swipeRef} autoplay={0}>
       {props.forecastday &&
-        props.forecastday.map((oneCity, i) => {
+        props.forecastday.map(oneCity => {
           return (
             <SwipeItem key={oneCity.city}>
               <div className="grid-wrapper w-full">

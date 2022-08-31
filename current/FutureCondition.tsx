@@ -6,10 +6,10 @@ const FutureCondition: React.FC<IProps> = ({location}) => {
   const {futureInfo} = useMainContext()
   const {date, day} = futureInfo
   const {name, localtime} = location
-  const {maxtemp_f, mintemp_f, avgtemp_f, condition} = day
+  const {avgtemp_f, condition} = day
   const {text, icon} = condition
   return (
-    <div className="mx-auto a-center">
+    <div className="condition--body mx-auto a-center">
       <div>{name}</div>
       <div>{date}</div>
       <div>{avgtemp_f}°</div>

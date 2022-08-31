@@ -1,0 +1,21 @@
+.current--wrapper {
+  max-width: 850px;
+  min-height: 500px;
+}
+.conditions--large {
+  text-shadow: 0 0 5px rgb(23 36 50 / 50%);
+  color: #fff;
+  width: 100%;
+}
+.conditions--header {
+  padding: 10px 16px;
+  background-color: rgba(#000, 0.55);
+}
+.conditions--body {
+  padding: 10px 16px;
+  grid-template-columns: 5fr 1fr;
+}
+.temperature-value {
+  font-size: 6rem;
+  font-weight: 500;
+}

@@ -17,29 +17,30 @@ const Current = () => {
 
   useEffect(() => {
     if (forecastday.length === 0) {
-      // @ts-ignore
       if (coordinates.lat !== Infinity && coordinates.long !== Infinity) {
-        // @ts-ignore
         fetchInitial(`${coordinates.lat},${coordinates.long}`)
       } else if (ip) {
         fetchInitial(ip)
       }
     }
-    console.debug('current', current)
-    console.debug('location', location)
-    // @ts-ignore
   }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current, location])
+
+  if(forecastday.length === 0) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="grid mx-auto w-full">
-      <div className="cursor-pointer" onClick={handleBack}>
-        Go to Cities
+      <div className="current--wrapper mx-auto">
+        <div className="cursor-pointer" onClick={handleBack}>
+          View Cities
+        </div>
+        {!future && Object.keys(current).length > 0 && Object.keys(location).length > 0 && (
+          <Condition current={current} location={location} />
+        )}
+        {future && <FutureCondition location={location} />}
+        <Hourly />
       </div>
-      {!future && Object.keys(current).length > 0 && Object.keys(location).length > 0 && (
-        <Condition current={current} location={location} />
-      )}
-      {future && <FutureCondition location={location} />}
-      <Hourly />
     </div>
   )
 }
