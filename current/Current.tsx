@@ -5,6 +5,7 @@ import useGeolocation from '../hooks/useGeolocation'
 import {Hourly} from './Hourly'
 import {Condition} from './Condition'
 import {FutureCondition} from './FutureCondition'
+import {CurrentCityDays} from './CurrentCityDays'
 
 const Current = () => {
   const {setDetailPage, current, location, forecastday, future} = useMainContext()
@@ -25,6 +26,9 @@ const Current = () => {
     }
   }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current, location])
 
+
+  console.debug(forecastday)
+
   if(forecastday.length === 0) {
     return <div>Loading...</div>
   }
@@ -40,6 +44,7 @@ const Current = () => {
         )}
         {future && <FutureCondition location={location} />}
         <Hourly />
+        <CurrentCityDays location={location} />
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   return (
     <div className="w-full">
-      <div className={`${styles.grid} mx-auto`}>{forecastday.length === 0 ? <></> : <CityDays forecastday={forecastday} />}</div>
+      <div className={`${styles.grid} mx-auto`}>{forecastday.length === 0 ? <>Loading...</> : <CityDays forecastday={forecastday} />}</div>
     </div>
   )
 }

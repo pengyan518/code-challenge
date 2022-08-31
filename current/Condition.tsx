@@ -4,12 +4,12 @@ interface IProps {
   location: any
 }
 const Condition: React.FC<IProps> = ({current, location}) => {
-  const {name, localtime} = location
+  const {name, region, localtime} = location
   const {temp_f, condition, feelslike_f} = current
   const {text, icon} = condition
   return (
     <div className="conditions--large mx-auto">
-      <header className="conditions--header">{name}</header>
+      <header className="conditions--header">{name}, {region}</header>
       <div className="conditions--body w-full grid">
         <div>
           <div>{localtime}</div>
