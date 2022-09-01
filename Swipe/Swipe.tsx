@@ -11,6 +11,8 @@ import useResize from '../hooks/Swipe/useResize'
 
 import {ChevronLeft, ChevronRight} from '../icons'
 import {useMainContext} from '../contexts/MainContext'
+import ChevronDown from "../icons/ChevronDown";
+import ChevronUp from "../icons/ChevronUp";
 
 export interface SwipeRef {
   next: () => void
@@ -205,18 +207,18 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   }, [count, goToPosition, goToTargetPage, groupLength, searchResultInStore, setGoToTargetPage, setSearchResultInStore, targetPage])
 
   return (
-    <div className="relative w-full">
+    <div className="swipe__wrapper relative mx-auto">
       <button
-        className={`absolute w-12 left-0 z-10 h-5/6 hidden md:flex items-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
+        className={`absolute top-0 z-10 w-full hidden md:flex items-center justify-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
         onClick={prev}>
         {/*  @ts-ignore */}
-        <ChevronLeft className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
+        <ChevronUp className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
       </button>
       <button
-        className={`absolute w-12 right-0 z-10 h-5/6 hidden md:flex items-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
+        className={`absolute bottom-0 z-10 w-full hidden md:flex items-center justify-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
         onClick={next}>
         {/*  @ts-ignore */}
-        <ChevronRight className="h-9 w-9 text-sky-600 mt-1" viewBox="0 0 16 16" />
+        <ChevronDown className="h-9 w-9 text-sky-600 mt-1" viewBox="0 0 16 16" />
       </button>
 
       <div

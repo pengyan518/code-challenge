@@ -1,4 +1,3 @@
-import {useMainContext} from '../contexts/MainContext'
 interface IProps {
   current: any
   location: any

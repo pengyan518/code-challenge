@@ -26,8 +26,9 @@ const Current = () => {
     }
   }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current, location])
 
+  console.debug(forecastday)
 
-  if(forecastday.length === 0) {
+  if (forecastday.length === 0) {
     return <div>Loading...</div>
   }
 

@@ -6,25 +6,29 @@ type SuggestionItemProps = {
   name: string
 }
 const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
-  const {
-    setShowSuggestion,
-    swipeCount,
-    setLimit,
-    setHoursDetail,
-    setDetailPage,
-  } = useMainContext()
+  const {setShowSuggestion, swipeCount, setLimit, setHoursDetail, setDetailPage, setFuture, setLocation, setFutureInfo} = useMainContext()
   const {fetchInitial, forecastday, city} = useFetchCity()
 
   const showHours = useCallback(
     (hour: any, date: any) => {
       setDetailPage(true)
+      setFuture(true)
       setHoursDetail({
         city: name,
         hour,
         date,
       })
     },
-    [name, setDetailPage, setHoursDetail]
+    [name, setDetailPage, setFuture, setHoursDetail]
+  )
+
+  const fetchDetails = useCallback(
+    (oneDay: any) => {
+      const currentCity: {location: {}; current: {}} = forecastday.filter((city: {city: string}) => city.city === name)[0]
+      setLocation(currentCity.location)
+      setFutureInfo(oneDay)
+    },
+    [forecastday, name, setFutureInfo, setLocation]
   )
 
   const handleClick = useCallback(() => {
@@ -36,13 +40,14 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
     if (feeds.includes(name)) {
       const cityIndex = feeds.indexOf(name)
       showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
+      fetchDetails(forecastday[cityIndex].days[0])
     } else if (swipeCount < 20) {
+      setDetailPage(true)
       fetchInitial(name)
     } else {
       setLimit(true)
       alert('Up to 20 Cities!')
     }
-
 
     // const feeds = forecastday.map(item => item.city)
     // if (feeds.includes(name)) {

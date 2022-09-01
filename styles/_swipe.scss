@@ -1,3 +1,9 @@
+.swipe {
+  &__wrapper {
+    max-width: 850px;
+  }
+}
+
 .swipe__vertical {
   flex-direction: column;
 }
