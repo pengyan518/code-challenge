@@ -1,17 +1,16 @@
-import styles from '../styles/Home.module.css'
 import {Dashboard} from '../dashboard/Dashboard'
-import {MainContext, useMainContext} from '../contexts/MainContext'
+import {useMainContext} from '../contexts/MainContext'
 import {Search} from '../search/Search'
 import {Current} from '../current/Current'
 
 const MainHome = () => {
-  const {detailPage, setDetailPage} = useMainContext()
+  const {detailPage} = useMainContext()
   return (
-    <main className={`${styles.main} mx-auto`}>
+    <main className="main mx-auto">
       <Search />
       {detailPage ? <Current /> : <Dashboard />}
     </main>
   )
 }
 
-export default MainHome
+export {MainHome}

@@ -1,5 +1,5 @@
 .current--wrapper {
-  max-width: 850px;
+  max-width: var(--container-width);
   min-height: 500px;
 }
 .conditions--large {

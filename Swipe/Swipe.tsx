@@ -11,8 +11,8 @@ import useResize from '../hooks/Swipe/useResize'
 
 import {ChevronLeft, ChevronRight} from '../icons'
 import {useMainContext} from '../contexts/MainContext'
-import ChevronDown from "../icons/ChevronDown";
-import ChevronUp from "../icons/ChevronUp";
+import ChevronDown from '../icons/ChevronDown'
+import ChevronUp from '../icons/ChevronUp'
 
 export interface SwipeRef {
   next: () => void
@@ -43,16 +43,19 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
     touchable = true,
     loop = true,
     onSlideChange,
-    groupLength = window.innerWidth >= 1024 ? 5 : window.innerWidth < 768 ? 2 : 3,
+    groupLength = vertical ? 5 : window.innerWidth >= 1024 ? 5 : window.innerWidth < 768 ? 2 : 3,
     showIndicators = true,
   } = props
   const timer = useRef<NodeJS.Timeout | null>(null)
   const touch = useTouch()
   const count = useMemo(() => React.Children.count(props.children), [props.children])
   const {size, root, changeSize} = useRect<HTMLDivElement>([count])
-  const itemSize = useMemo(() => (vertical ? 140 : size.width / groupLength), [groupLength, size.width, vertical])
+  const itemSize = useMemo(
+    () => (vertical ? size.height / groupLength : size.width / groupLength),
+    [groupLength, size.height, size.width, vertical]
+  )
   const itemKey = useMemo(() => (vertical ? 'height' : 'width'), [vertical])
-  const gridTemplateKey = useMemo(() => (vertical ? 'grid-template-rows' : 'grid-template-columns'), [vertical])
+  const gridTemplateKey = useMemo(() => (vertical ? 'gridTemplateRows' : 'gridTemplateColumns'), [vertical])
   const {
     setCurrentIndex,
     setSwipeGroupLength,
@@ -196,7 +199,8 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   useEffect(() => {
     if (searchResultInStore) {
       // const position = targetPage % groupLength === 0 ? targetPage: Math.max(Math.floor((targetPage + 1) / groupLength) - 1, 0) * groupLength
-      const position = targetPage % groupLength === 0 ? targetPage: Math.max(Math.ceil((targetPage + 1) / groupLength) - 1, 0) * groupLength
+      const position =
+        targetPage % groupLength === 0 ? targetPage : Math.max(Math.ceil((targetPage + 1) / groupLength) - 1, 0) * groupLength
       goToPosition({position})
       // console.debug(`position: ${position} targetPage: ${targetPage}`)
       setSearchResultInStore(false)
@@ -209,13 +213,13 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   return (
     <div className="swipe__wrapper relative mx-auto">
       <button
-        className={`absolute top-0 z-10 w-full hidden md:flex items-center justify-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
+        className={`absolute top-0 z-10 w-full flex items-center justify-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
         onClick={prev}>
         {/*  @ts-ignore */}
         <ChevronUp className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
       </button>
       <button
-        className={`absolute bottom-0 z-10 w-full hidden md:flex items-center justify-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
+        className={`absolute bottom-0 z-10 w-full flex items-center justify-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
         onClick={next}>
         {/*  @ts-ignore */}
         <ChevronDown className="h-9 w-9 text-sky-600 mt-1" viewBox="0 0 16 16" />
@@ -229,7 +233,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
         onTouchEnd={onTouchEnd}
         style={props.style}
         className="mx-auto relative overflow-hidden ml-4 mr-0 md:ml-14 md:mr-12 my-4 w-full">
-         {/*  @ts-ignore */}
+        {/*  @ts-ignore */}
         <div ref={swipeRef} style={wrapperStyle} count={count} className="grid gap-4 md:gap-6 2xl:gap-8">
           {React.Children.map(props.children, (child, index) => {
             if (!React.isValidElement(child)) return null
@@ -241,10 +245,11 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
             })
           })}
         </div>
-        {showIndicators && (
-          <SwipeDots current={current} vertical={vertical} count={count} groupLength={groupLength} goToPosition={goToPosition} />
-        )}
       </div>
+
+      {showIndicators && (
+        <SwipeDots current={current} vertical={vertical} count={count} groupLength={groupLength} goToPosition={goToPosition} />
+      )}
     </div>
   )
 })

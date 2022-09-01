@@ -6,6 +6,7 @@ import {Hourly} from './Hourly'
 import {Condition} from './Condition'
 import {FutureCondition} from './FutureCondition'
 import {CurrentCityDays} from './CurrentCityDays'
+import ListUl from '../icons/ListUl'
 
 const Current = () => {
   const {setDetailPage, current, location, forecastday, future} = useMainContext()
@@ -36,13 +37,14 @@ const Current = () => {
     <div className="grid mx-auto w-full">
       <div className="current--wrapper mx-auto">
         <div className="cursor-pointer" onClick={handleBack}>
-          View Cities
+          {/*  @ts-ignore */}
+          <ListUl className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
         </div>
         {!future && Object.keys(current).length > 0 && Object.keys(location).length > 0 && (
           <Condition current={current} location={location} />
         )}
         {future && <FutureCondition location={location} />}
-        <Hourly />
+        {/*<Hourly />*/}
         <CurrentCityDays city={location.name} />
       </div>
     </div>

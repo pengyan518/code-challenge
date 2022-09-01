@@ -1,0 +1,107 @@
+.bd-search {
+ position:relative;
+ width:100%
+}
+@media (min-width: 992px) {
+ .bd-search {
+  position:absolute;
+  top:.875rem;
+  left:50%;
+  width:200px;
+  margin-left:-100px
+ }
+}
+@media (min-width: 1200px) {
+ .bd-search {
+  width:280px;
+  margin-left:-140px
+ }
+}
+.DocSearch-Container {
+ --docsearch-muted-color: #6c757d;
+ --docsearch-hit-shadow: none;
+ z-index:2000
+}
+@media (min-width: 992px) {
+ .DocSearch-Container {
+  padding-top:4rem
+ }
+}
+.DocSearch-Button {
+ --docsearch-searchbox-background: rgba(0,0,0,0.1);
+ --docsearch-searchbox-color: #fff;
+ --docsearch-searchbox-focus-background: rgba(0,0,0,0.25);
+ --docsearch-searchbox-shadow: 0 0 0 0.25rem rgba(255,228,132,0.4);
+ --docsearch-text-color: #fff;
+ --docsearch-muted-color: rgba(255,255,255,0.65);
+ width:100%;
+ height:38px;
+ margin:0;
+ border:1px solid rgba(255,255,255,0.4);
+ border-radius:.375rem
+}
+.DocSearch-Button .DocSearch-Search-Icon {
+ opacity:.65
+}
+.DocSearch-Button:active,
+.DocSearch-Button:focus,
+.DocSearch-Button:hover {
+ border-color:#ffe484
+}
+.DocSearch-Button:active .DocSearch-Search-Icon,
+.DocSearch-Button:focus .DocSearch-Search-Icon,
+.DocSearch-Button:hover .DocSearch-Search-Icon {
+ opacity:1
+}
+.DocSearch-Button-Keys {
+ min-width:0;
+ padding:.125rem .25rem;
+ background:rgba(0,0,0,0.25);
+ border-radius:.25rem
+}
+.DocSearch-Button-Key {
+ top:0;
+ width:auto;
+ height:1.25rem;
+ padding-right:.125rem;
+ padding-left:.125rem;
+ margin-right:0;
+ font-size:.875rem;
+ background:none;
+ box-shadow:none
+}
+.DocSearch-Commands-Key {
+ padding-left:1px;
+ font-size:.875rem;
+ background-color:rgba(0,0,0,0.1);
+ background-image:none;
+ box-shadow:none
+}
+.DocSearch-Form {
+ border-radius:var(--bs-border-radius)
+}
+.DocSearch-Hits mark {
+ padding:0
+}
+.DocSearch-Hit {
+ padding-bottom:0;
+ border-radius:0
+}
+.DocSearch-Hit a {
+ border-radius:0;
+ border:solid var(--bs-border-color);
+ border-width:0 1px 1px
+}
+.DocSearch-Hit:first-child a {
+ border-top-left-radius:var(--bs-border-radius);
+ border-top-right-radius:var(--bs-border-radius);
+ border-top-width:1px
+}
+.DocSearch-Hit:last-child a {
+ border-bottom-right-radius:var(--bs-border-radius);
+ border-bottom-left-radius:var(--bs-border-radius)
+}
+.DocSearch-Hit-icon {
+ display:flex;
+ align-items:center
+}

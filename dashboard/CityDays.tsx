@@ -11,7 +11,7 @@ type CityDaysProps = {
 const CityDays = (props: CityDaysProps) => {
   const swipeRef = useRef<SwipeRef>(null)
   const swipeWrapper = {
-    height: 700
+    height: window.innerWidth < 768 ? 940 : 750
   }
   return (
     <Swipe ref={swipeRef} autoplay={0} vertical={true} style={swipeWrapper}>
@@ -20,7 +20,7 @@ const CityDays = (props: CityDaysProps) => {
           return (
             <SwipeItem key={oneCity.city}>
               <div className="">
-                <div className="a-center">{oneCity.city}</div>
+                <div className="">{oneCity.city}</div>
                 <div className="grid city-days--grid">
                 {oneCity.days.length > 0 &&
                   oneCity.days.map((oneDay: {date_epoch: string}) => (

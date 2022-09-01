@@ -3,7 +3,7 @@
 }
 .hours-grid-wrapper {
   overflow: scroll;
-  max-width: 850px;
+  max-width: var(--container-width);
   @media (max-width: 767px) {
     max-width: 100%;
   }
