@@ -6,7 +6,17 @@ type SuggestionItemProps = {
   name: string
 }
 const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
-  const {setShowSuggestion, swipeCount, setLimit, setHoursDetail, setDetailPage, setFuture, setLocation, setFutureInfo} = useMainContext()
+  const {
+    setShowSuggestion,
+    swipeCount,
+    setLimit,
+    setHoursDetail,
+    setDetailPage,
+    setFuture,
+    setLocation,
+    setFutureInfo,
+    setShowSearchPopup,
+  } = useMainContext()
   const {fetchInitial, forecastday, city} = useFetchCity()
 
   const showHours = useCallback(
@@ -32,10 +42,6 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
   )
 
   const handleClick = useCallback(() => {
-    // setShowSuggestion(false)
-    // @ts-ignore
-    // document.querySelector('#search-form').value = ''
-
     const feeds = forecastday.map(item => item.city)
     if (feeds.includes(name)) {
       const cityIndex = feeds.indexOf(name)
@@ -48,6 +54,11 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
       setLimit(true)
       alert('Up to 20 Cities!')
     }
+
+    setShowSuggestion(false)
+    setShowSearchPopup(false)
+    // @ts-ignore
+    document.querySelector('#search-form').value = ''
 
     // const feeds = forecastday.map(item => item.city)
     // if (feeds.includes(name)) {
@@ -62,14 +73,40 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
     //   setLimit(true)
     //   alert('Up to 20 Cities!')
     // }
-  }, [fetchInitial, forecastday, name, setLimit, setShowSuggestion, showHours, swipeCount])
+  }, [fetchDetails, fetchInitial, forecastday, name, setDetailPage, setLimit, setShowSearchPopup, setShowSuggestion, showHours, swipeCount])
 
   return (
-    <li className="hand">
-      <a role="button" tabIndex={0} onClick={handleClick}>
-        <div className="AutocompleteItem" dangerouslySetInnerHTML={{__html: name}} />
-      </a>
-    </li>
+    <>
+      <li className="DocSearch-Hit" id="docsearch-item-0" role="option" aria-selected="false">
+        <a role="button" tabIndex={0} onClick={handleClick} className="hand">
+          <div className="DocSearch-Hit-Container">
+            <div className="DocSearch-Hit-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20">
+                <path
+                  d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"
+                  stroke="currentColor"
+                  fill="none"
+                  fillRule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"></path>
+              </svg>
+            </div>
+            <div className="DocSearch-Hit-content-wrapper">
+              <span className="DocSearch-Hit-title" dangerouslySetInnerHTML={{__html: name}} />
+              {/*<span className="DocSearch-Hit-path">v5.2.0</span>*/}
+            </div>
+            <div className="DocSearch-Hit-action">
+              <svg className="DocSearch-Hit-Select-Icon" width="20" height="20" viewBox="0 0 20 20">
+                <g stroke="currentColor" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 3v4c0 2-2 4-4 4H2"></path>
+                  <path d="M8 17l-6-6 6-6"></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </li>
+    </>
   )
 })
 

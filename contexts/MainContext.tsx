@@ -19,6 +19,7 @@ interface CoordinatesProps {
 interface ReducerProps {
   city: string
   current: {}
+  showSearchPopup: boolean
   future: boolean
   futureInfo: FuturePros
   location: {
@@ -42,6 +43,7 @@ interface ReducerProps {
 interface ActionProps {
   setCurrentCity: (c?: any) => void
   setCurrent: (c?: any) => void
+  setShowSearchPopup: (c?: any) => void
   setFuture: (c?: any) => void
   setFutureInfo: (c?: any) => void
   setLocation: (c?: any) => void
@@ -65,6 +67,7 @@ interface ActionProps {
 const initialStateMain: ReducerProps & ActionProps = {
   city: '',
   current: '',
+  showSearchPopup: false,
   future: false,
   futureInfo: {
     day: {},
@@ -101,6 +104,7 @@ const initialStateMain: ReducerProps & ActionProps = {
   setLocation: (_value: string) => {},
   setForecastday: (_value: []) => {},
   setShowSuggestion: (_value: boolean) => {},
+  setShowSearchPopup: (_value: boolean) => {},
   setHoursDetail: (_value: {}) => {},
   setCurrentIndex: (_value: {}) => {},
   setSwipeGroupLength: (_value: {}) => {},
@@ -122,7 +126,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const [current, setCurrent] = useState({})
   const [future, setFuture] = useState(false)
   const [futureInfo, setFutureInfo] = useState<FuturePros>({date: '', day: undefined})
-  const [location, setLocation] = useState({})
+  const [location, setLocation] = useState({name: ''})
   const [forecastday, setForecastday] = useState([])
   const [showSuggestion, setShowSuggestion] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -131,6 +135,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const [targetPage, setTargetPage] = useState(0)
   const [swipeCount, setSwipeCount] = useState(0)
   const [searchResultInStore, setSearchResultInStore] = useState(false)
+  const [showSearchPopup, setShowSearchPopup] = useState(false)
   const [limit, setLimit] = useState(false)
   const [detailPage, setDetailPage] = useState(true)
   const [coordinatesDone, setCoordinatesDone] = useState(false)
@@ -148,6 +153,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
   const reducer: ReducerProps = {
     city,
     current,
+    showSearchPopup,
     future,
     futureInfo,
     location,
@@ -174,6 +180,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     setLocation,
     setForecastday,
     setShowSuggestion,
+    setShowSearchPopup,
     setHoursDetail,
     setCurrentIndex,
     setSwipeGroupLength,
