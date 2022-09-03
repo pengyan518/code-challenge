@@ -7,7 +7,7 @@ const Condition: React.FC<IProps> = ({current, location}) => {
   const {temp_f, condition, feelslike_f} = current
   const {text, icon} = condition
   return (
-    <div className="conditions--large mx-auto">
+    <div className="conditions--large mx-auto p-4">
       <header className="conditions--header">{name}, {region}</header>
       <div className="conditions--body w-full grid">
         <div>

@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   return (
     <div className="w-full">
-      <div className="mx-auto current--wrapper">{forecastday.length === 0 ? <div className="a-center">Loading...</div> : <CityDays forecastday={forecastday} />}</div>
+      <div className="mx-auto current--wrapper p-4">{forecastday.length === 0 ? <div className="a-center">Loading...</div> : <CityDays forecastday={forecastday} />}</div>
     </div>
   )
 }
