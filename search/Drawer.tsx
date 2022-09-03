@@ -21,33 +21,33 @@ const Drawer = (props: DrawerProps) => {
 
         <footer className="DocSearch-Footer">
           <ul className="DocSearch-Commands">
-            <li>
-              <kbd className="DocSearch-Commands-Key">
-                <svg width="15" height="15" aria-label="Enter key" role="img">
-                  <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">
-                    <path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path>
-                  </g>
-                </svg>
-              </kbd>
-              <span className="DocSearch-Label">to select</span>
-            </li>
-            <li>
-              <kbd className="DocSearch-Commands-Key">
-                <svg width="15" height="15" aria-label="Arrow down" role="img">
-                  <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">
-                    <path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path>
-                  </g>
-                </svg>
-              </kbd>
-              <kbd className="DocSearch-Commands-Key">
-                <svg width="15" height="15" aria-label="Arrow up" role="img">
-                  <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">
-                    <path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path>
-                  </g>
-                </svg>
-              </kbd>
-              <span className="DocSearch-Label">to navigate</span>
-            </li>
+            {/*<li>*/}
+            {/*  <kbd className="DocSearch-Commands-Key">*/}
+            {/*    <svg width="15" height="15" aria-label="Enter key" role="img">*/}
+            {/*      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">*/}
+            {/*        <path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path>*/}
+            {/*      </g>*/}
+            {/*    </svg>*/}
+            {/*  </kbd>*/}
+            {/*  <span className="DocSearch-Label">to select</span>*/}
+            {/*</li>*/}
+            {/*<li>*/}
+            {/*  <kbd className="DocSearch-Commands-Key">*/}
+            {/*    <svg width="15" height="15" aria-label="Arrow down" role="img">*/}
+            {/*      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">*/}
+            {/*        <path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path>*/}
+            {/*      </g>*/}
+            {/*    </svg>*/}
+            {/*  </kbd>*/}
+            {/*  <kbd className="DocSearch-Commands-Key">*/}
+            {/*    <svg width="15" height="15" aria-label="Arrow up" role="img">*/}
+            {/*      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">*/}
+            {/*        <path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path>*/}
+            {/*      </g>*/}
+            {/*    </svg>*/}
+            {/*  </kbd>*/}
+            {/*  <span className="DocSearch-Label">to navigate</span>*/}
+            {/*</li>*/}
             <li>
               <kbd className="DocSearch-Commands-Key">
                 <svg width="15" height="15" aria-label="Escape key" role="img">

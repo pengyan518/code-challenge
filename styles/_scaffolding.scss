@@ -1,5 +1,5 @@
 :root {
-  --container-width: var(--container-width);
+  --container-width: 850px;
 }
 
 html,
@@ -15,7 +15,7 @@ body {
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 0 0 4rem;
   //display: flex;
   //flex-direction: column;
   //justify-content: center;

@@ -14,7 +14,6 @@ const CurrentCityDays = (props: CityDaysProps) => {
   return (
     <div key={oneCity.city}>
       <div className="w-full">
-        <div className="a-center">{oneCity.city}</div>
         <div className="grid city-days--grid">
         {oneCity.days.length > 0 &&
           oneCity.days.map((oneDay: {date_epoch: string}) => <OneDay key={oneDay.date_epoch} oneDay={oneDay} city={oneCity.city} />)}

@@ -9,7 +9,7 @@ import {useMainContext} from '../contexts/MainContext'
 const AutoCompleteForm = memo(() => {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([])
-  const {showSuggestion, setShowSuggestion} = useMainContext()
+  const {showSuggestion, setShowSuggestion, setShowSearchPopup} = useMainContext()
 
   const onTextChanged = useCallback(
     async (value: string) => {
@@ -21,6 +21,10 @@ const AutoCompleteForm = memo(() => {
     },
     [setShowSuggestion]
   )
+
+  const handleClose = useCallback(() => {
+    setShowSearchPopup(false)
+  }, [setShowSearchPopup])
 
   const changeHandler = useCallback(
     (event: {target: {value: string}}) => {
@@ -70,16 +74,14 @@ const AutoCompleteForm = memo(() => {
             id="search-form"
             className="DocSearch-Input"
             aria-autocomplete="both"
-            aria-labelledby="docsearch-label"
             onChange={debouncedChangeHandler}
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="none"
-            enterkeyhint="search"
             spellCheck="false"
-            autoFocus="true"
-            placeholder="Search by city or state"
-            maxLength="64"
+            autoFocus
+            placeholder="Add City or ZIP code"
+            maxLength={64}
             type="search"
           />
           <button type="reset" title="Clear the query" className="DocSearch-Reset" aria-label="Clear the query">
@@ -94,17 +96,19 @@ const AutoCompleteForm = memo(() => {
             </svg>
           </button>
         </form>
-        <button className="DocSearch-Cancel" type="reset" aria-label="Cancel">
+        <button className="DocSearch-Cancel" type="reset" aria-label="Cancel" onClick={handleClose}>
           Cancel
         </button>
       </header>
 
       {query !== '' && suggestions.length > 0 && showSuggestion && <Suggestion suggestions={suggestions} />}
-      <div className="DocSearch-Dropdown">
-        <div className="DocSearch-StartScreen">
-          <p className="DocSearch-Help">{suggestions.length === 0 && query !== '' && 'No matches...'}</p>
+      {suggestions.length === 0 && query !== '' && (
+        <div className="DocSearch-Dropdown">
+          <div className="DocSearch-StartScreen">
+            <p className="DocSearch-Help">No matches...</p>
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 })

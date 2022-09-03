@@ -1,5 +1,4 @@
 import {ReactNode, useEffect, useState} from 'react'
-import styles from '../styles/Home.module.css'
 import {CityDays} from './CityDays'
 import {useMainContext} from '../contexts/MainContext'
 
@@ -8,7 +7,7 @@ const Dashboard = () => {
 
   return (
     <div className="w-full">
-      <div className={`${styles.grid} mx-auto`}>{forecastday.length === 0 ? <>Loading...</> : <CityDays forecastday={forecastday} />}</div>
+      <div className="mx-auto current--wrapper">{forecastday.length === 0 ? <div className="a-center">Loading...</div> : <CityDays forecastday={forecastday} />}</div>
     </div>
   )
 }

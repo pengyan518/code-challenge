@@ -3,9 +3,12 @@ import {useFetchCity} from '../hooks/useFetchCity'
 import {useMainContext} from '../contexts/MainContext'
 
 type SuggestionItemProps = {
-  name: string
+  item: {
+    name: string
+    region: string
+  }
 }
-const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
+const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
   const {
     setShowSuggestion,
     swipeCount,
@@ -34,22 +37,22 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
 
   const fetchDetails = useCallback(
     (oneDay: any) => {
-      const currentCity: {location: {}; current: {}} = forecastday.filter((city: {city: string}) => city.city === name)[0]
+      const currentCity: {location: {}; current: {}} = forecastday.filter((city: {city: string}) => city.city === item.name)[0]
       setLocation(currentCity.location)
       setFutureInfo(oneDay)
     },
-    [forecastday, name, setFutureInfo, setLocation]
+    [forecastday, item.name, setFutureInfo, setLocation]
   )
 
   const handleClick = useCallback(() => {
-    const feeds = forecastday.map(item => item.city)
+    const feeds = forecastday.map(v => v.city)
     if (feeds.includes(name)) {
       const cityIndex = feeds.indexOf(name)
       showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
       fetchDetails(forecastday[cityIndex].days[0])
     } else if (swipeCount < 20) {
       setDetailPage(true)
-      fetchInitial(name)
+      fetchInitial(item.name)
     } else {
       setLimit(true)
       alert('Up to 20 Cities!')
@@ -80,20 +83,20 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({name}) => {
       <li className="DocSearch-Hit" id="docsearch-item-0" role="option" aria-selected="false">
         <a role="button" tabIndex={0} onClick={handleClick} className="hand">
           <div className="DocSearch-Hit-Container">
-            <div className="DocSearch-Hit-icon">
-              <svg width="20" height="20" viewBox="0 0 20 20">
-                <path
-                  d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"
-                  stroke="currentColor"
-                  fill="none"
-                  fillRule="evenodd"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"></path>
-              </svg>
-            </div>
+            {/*<div className="DocSearch-Hit-icon">*/}
+            {/*  <svg width="20" height="20" viewBox="0 0 20 20">*/}
+            {/*    <path*/}
+            {/*      d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"*/}
+            {/*      stroke="currentColor"*/}
+            {/*      fill="none"*/}
+            {/*      fillRule="evenodd"*/}
+            {/*      strokeLinecap="round"*/}
+            {/*      strokeLinejoin="round"></path>*/}
+            {/*  </svg>*/}
+            {/*</div>*/}
             <div className="DocSearch-Hit-content-wrapper">
-              <span className="DocSearch-Hit-title" dangerouslySetInnerHTML={{__html: name}} />
-              {/*<span className="DocSearch-Hit-path">v5.2.0</span>*/}
+              <span className="DocSearch-Hit-title" dangerouslySetInnerHTML={{__html: item.name}} />
+              <span className="DocSearch-Hit-path">{item.region}</span>
             </div>
             <div className="DocSearch-Hit-action">
               <svg className="DocSearch-Hit-Select-Icon" width="20" height="20" viewBox="0 0 20 20">

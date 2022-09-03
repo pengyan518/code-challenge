@@ -1,13 +1,13 @@
 import {Dashboard} from '../dashboard/Dashboard'
 import {useMainContext} from '../contexts/MainContext'
-import {Search} from '../search/Search'
 import {Current} from '../current/Current'
+import {Header} from './Header'
 
 const MainHome = () => {
   const {detailPage} = useMainContext()
   return (
     <main className="main mx-auto">
-      <Search />
+      <Header />
       {detailPage ? <Current /> : <Dashboard />}
     </main>
   )
