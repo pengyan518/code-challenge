@@ -3,7 +3,7 @@ import {useMainContext} from '../contexts/MainContext'
 const Hourly = () => {
   const {hoursDetail} = useMainContext()
   return (
-    <div className="hours-grid-wrapper mx-auto">
+    <div className="hours-grid-wrapper mx-auto mt-4">
       {hoursDetail.hour.length > 0 && (
         <div className="hours-grid grid">
           {hoursDetail.hour

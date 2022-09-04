@@ -40,7 +40,7 @@ const Current = () => {
           <Condition current={current} location={location} />
         )}
         {future && <FutureCondition location={location} />}
-        {/*<Hourly />*/}
+        <Hourly />
         <CurrentCityDays city={location.name} />
       </div>
     </div>

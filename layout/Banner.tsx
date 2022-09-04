@@ -25,8 +25,17 @@ const Banner = (props: IBannerProps) => {
     []
   )
 
+  const convertToImageText = useCallback(
+    (string: string) => {
+      if (string.toLowerCase().includes('rain')) return 'Rain'
+      return convertText(string)
+    },
+    [convertText],
+  );
+
+
   const conditionWrapper = {
-    backgroundImage: `url(${config.weatherImage}${convertText(text)}${config.weatherImageParameter})`,
+    backgroundImage: `url(${config.weatherImage}${convertToImageText(text)}${config.weatherImageParameter})`,
   }
   return (
     <div className="conditions--large mx-auto" style={conditionWrapper}>
