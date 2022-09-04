@@ -388,6 +388,49 @@
   padding-bottom: 3rem;
 }
 
+.mx-2 {
+    margin-left: .5rem;
+    margin-right: .5rem
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto
+}
+
+.my-4 {
+    margin-bottom: 1rem;
+    margin-top: 1rem
+}
+
+.mt-1 {
+    margin-top: .25rem
+}
+
+.ml-2 {
+    margin-left: .5rem
+}
+
+.mt-2 {
+    margin-top: .5rem
+}
+
+.mb-2 {
+    margin-bottom: .5rem
+}
+
+.mr-2 {
+    margin-right: .5rem
+}
+
+.ml-4 {
+    margin-left: 1rem
+}
+
+.mr-0 {
+    margin-right: 0
+}
+
 @media (min-width: 768px) {
   .md\:flex {
     display: flex;
