@@ -31,7 +31,7 @@ const OneDay = (props: DayProps) => {
   }, [forecastday, props.city, props.oneDay, setFutureInfo, setLocation, showHours])
 
   return (
-    <a key={date_epoch} className={`${styles.card} text-center`} onClick={fetchDetails}>
+    <a key={date_epoch} className="card text-center" onClick={fetchDetails}>
       <div className="text-sm">{date}</div>
       {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={48} height={48} />}
       <p>

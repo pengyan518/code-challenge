@@ -1,7 +1,10 @@
 .swipe {
   &__wrapper {
     max-width: var(--container-width);
-    padding: 2rem;
+
+    @media (min-width: 768px) {
+      padding: 2rem;
+    }
   }
 
   &__vertical {

@@ -34,7 +34,7 @@ const Current = () => {
   }
 
   return (
-    <div className="grid mx-auto w-full">
+    <div className="grid mx-auto w-full p-4 relative">
       <div className="current--wrapper mx-auto">
         {!future && Object.keys(current).length > 0 && Object.keys(location).length > 0 && (
           <Condition current={current} location={location} />
