@@ -6,7 +6,7 @@ import {Header} from './Header'
 const MainHome = () => {
   const {detailPage} = useMainContext()
   return (
-    <main className="main mx-auto">
+    <main className="mainHome__body main mx-auto">
       <Header />
       {detailPage ? <Current /> : <Dashboard />}
     </main>

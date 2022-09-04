@@ -27,12 +27,12 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
       setDetailPage(true)
       setFuture(true)
       setHoursDetail({
-        city: name,
+        city: item.name,
         hour,
         date,
       })
     },
-    [name, setDetailPage, setFuture, setHoursDetail]
+    [item.name, setDetailPage, setFuture, setHoursDetail]
   )
 
   const fetchDetails = useCallback(
@@ -46,8 +46,8 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
 
   const handleClick = useCallback(() => {
     const feeds = forecastday.map(v => v.city)
-    if (feeds.includes(name)) {
-      const cityIndex = feeds.indexOf(name)
+    if (feeds.includes(item.name)) {
+      const cityIndex = feeds.indexOf(item.name)
       showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
       fetchDetails(forecastday[cityIndex].days[0])
     } else if (swipeCount < 20) {
@@ -58,8 +58,8 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
       alert('Up to 20 Cities!')
     }
 
-    setShowSuggestion(false)
-    setShowSearchPopup(false)
+    // setShowSuggestion(false)
+    // setShowSearchPopup(false)
     // @ts-ignore
     document.querySelector('#search-form').value = ''
 
@@ -76,7 +76,7 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
     //   setLimit(true)
     //   alert('Up to 20 Cities!')
     // }
-  }, [fetchDetails, fetchInitial, forecastday, name, setDetailPage, setLimit, setShowSearchPopup, setShowSuggestion, showHours, swipeCount])
+  }, [fetchDetails, fetchInitial, forecastday, item.name, setDetailPage, setLimit, setShowSearchPopup, setShowSuggestion, showHours, swipeCount])
 
   return (
     <>
