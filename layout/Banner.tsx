@@ -12,9 +12,9 @@ type IBannerProps = {
 }
 
 const Banner = (props: IBannerProps) => {
-  const {temp_f, condition, feelslike_f, location} = props
+  const {temp_f, condition, feelslike_f, location, localtime} = props
   const {text, icon} = condition
-  const {name, region, localtime} = location
+  const {name, region} = location
 
   const convertText = useCallback(
     (string: string) =>
