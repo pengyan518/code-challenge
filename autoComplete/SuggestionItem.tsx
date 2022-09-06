@@ -63,6 +63,8 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
     // @ts-ignore
     document.querySelector('#search-form').value = ''
 
+    console.debug('forecastday:', forecastday)
+
     // const feeds = forecastday.map(item => item.city)
     // if (feeds.includes(name)) {
     //   setSearchResultInStore(true)

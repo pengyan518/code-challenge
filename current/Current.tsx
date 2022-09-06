@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {useMainContext} from '../contexts/MainContext'
 import {useFetchCity} from '../hooks/useFetchCity'
 import useGeolocation from '../hooks/useGeolocation'
@@ -7,11 +7,13 @@ import {Condition} from './Condition'
 import {FutureCondition} from './FutureCondition'
 import {CurrentCityDays} from './CurrentCityDays'
 import ListUl from '../icons/ListUl'
+import {TabSwitch} from '../layout/TabSwitch'
 
 const Current = () => {
   const {setDetailPage, current, location, forecastday, future} = useMainContext()
   const {coordinates, ip} = useGeolocation()
   const {fetchInitial, city} = useFetchCity()
+  const [activeTab, setTabActive] = useState('left')
 
   const handleBack = useCallback(() => {
     setDetailPage(false)
@@ -40,8 +42,8 @@ const Current = () => {
           <Condition current={current} location={location} />
         )}
         {future && <FutureCondition location={location} />}
-        <Hourly />
-        <CurrentCityDays city={location.name} />
+        <TabSwitch activeTab={activeTab} setTabActive={setTabActive} />
+        {activeTab === 'left' ? <Hourly /> : <CurrentCityDays city={location.name} />}
       </div>
     </div>
   )

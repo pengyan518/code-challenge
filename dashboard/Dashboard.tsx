@@ -4,6 +4,7 @@ import {useMainContext} from '../contexts/MainContext'
 
 const Dashboard = () => {
   const {forecastday} = useMainContext()
+    console.debug('forecastday2:', forecastday)
 
   return (
     <div className="w-full">

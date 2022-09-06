@@ -32,6 +32,7 @@ interface ReducerProps {
   swipeGroupLength: number
   swipeCount: number
   goToTargetPage: boolean
+  twelveHoursPage: boolean
   targetPage: number
   searchResultInStore: boolean
   limit: boolean
@@ -54,6 +55,7 @@ interface ActionProps {
   setSwipeGroupLength: (c?: any) => void
   setSwipeCount: (c?: any) => void
   setGoToTargetPage: (c?: any) => void
+  setTwelveHoursPage: (c?: any) => void
   setTargetPage: (c?: any) => void
   setSearchResultInStore: (c?: any) => void
   setLimit: (c?: any) => void
@@ -87,6 +89,7 @@ const initialStateMain: ReducerProps & ActionProps = {
   swipeGroupLength: 5,
   swipeCount: 0,
   goToTargetPage: false,
+  twelveHoursPage: false,
   targetPage: 0,
   searchResultInStore: false,
   limit: false,
@@ -110,6 +113,7 @@ const initialStateMain: ReducerProps & ActionProps = {
   setSwipeGroupLength: (_value: {}) => {},
   setSwipeCount: (_value: {}) => {},
   setGoToTargetPage: (_value: boolean) => {},
+  setTwelveHoursPage: (_value: boolean) => {},
   setTargetPage: (c?: number) => {},
   setSearchResultInStore: (c?: boolean) => {},
   setLimit: (c?: boolean) => {},
@@ -144,6 +148,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     long: Infinity,
   })
   const [ip, setIp] = useState(null)
+  const [twelveHoursPage, setTwelveHoursPage] = useState(false)
   const [hoursDetail, setHoursDetail] = useState<HoursDetailPros>({
     city: '',
     hour: [],
@@ -158,6 +163,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     futureInfo,
     location,
     forecastday,
+    twelveHoursPage,
     showSuggestion,
     hoursDetail,
     currentIndex,
@@ -186,6 +192,7 @@ const MainContext: React.FC<ContextProps> = ({children}) => {
     setSwipeGroupLength,
     setSwipeCount,
     setGoToTargetPage,
+    setTwelveHoursPage,
     setTargetPage,
     setSearchResultInStore,
     setLimit,
