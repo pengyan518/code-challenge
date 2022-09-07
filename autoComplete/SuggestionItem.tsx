@@ -1,4 +1,5 @@
 import React, {memo, useCallback, FC} from 'react'
+import Link from 'next/link'
 import {useFetchCity} from '../hooks/useFetchCity'
 import {useMainContext} from '../contexts/MainContext'
 
@@ -78,10 +79,21 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
     //   setLimit(true)
     //   alert('Up to 20 Cities!')
     // }
-  }, [fetchDetails, fetchInitial, forecastday, item.name, setDetailPage, setLimit, setShowSearchPopup, setShowSuggestion, showHours, swipeCount])
+  }, [
+    fetchDetails,
+    fetchInitial,
+    forecastday,
+    item.name,
+    setDetailPage,
+    setLimit,
+    setShowSearchPopup,
+    setShowSuggestion,
+    showHours,
+    swipeCount,
+  ])
 
   return (
-    <>
+    <Link href="/">
       <li className="DocSearch-Hit" id="docsearch-item-0" role="option" aria-selected="false">
         <a role="button" tabIndex={0} onClick={handleClick} className="hand">
           <div className="DocSearch-Hit-Container">
@@ -103,15 +115,15 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
             <div className="DocSearch-Hit-action">
               <svg className="DocSearch-Hit-Select-Icon" width="20" height="20" viewBox="0 0 20 20">
                 <g stroke="currentColor" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 3v4c0 2-2 4-4 4H2"></path>
-                  <path d="M8 17l-6-6 6-6"></path>
+                  <path d="M18 3v4c0 2-2 4-4 4H2" />
+                  <path d="M8 17l-6-6 6-6" />
                 </g>
               </svg>
             </div>
           </div>
         </a>
       </li>
-    </>
+    </Link>
   )
 })
 

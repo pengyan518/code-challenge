@@ -427,7 +427,33 @@
 .mr-0 {
   margin-right: 0;
 }
+.rotate-180 {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.rotate-90 {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.rotate-45 {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.icon-svg--flip-horizontal {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 
+.icon-svg--flip-vertical {
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+}
+
+.icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
 @media (min-width: 768px) {
   .md\:flex {
     display: flex;

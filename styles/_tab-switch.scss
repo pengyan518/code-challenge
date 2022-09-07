@@ -1,8 +1,8 @@
 /* taeb-switch styles */
 .taeb-switch__wrapper {
-  border-radius: 37px;
-  background-color: #f4f4f4;
-  padding: 8px;
+  border-radius: var(--border-radius);
+  background-color: #313136;
+  padding: 2px;
   width: 100%;
   max-width: 316px;
   margin-left: auto;
@@ -16,9 +16,9 @@
     width: 50%;
     top: 0;
     transition: left cubic-bezier(0.88, -0.35, 0.565, 1.35) 0.2s;
-    border-radius: 27.5px;
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: #3d90ef;
+    background-color: #696970;
     height: 100%;
     z-index: 0;
   }
@@ -43,7 +43,7 @@
     font-weight: bold;
     line-height: normal;
     user-select: none;
-    color: #3d90ef;
+    color: #fff;
     &.active {
       color: #ffffff;
     }

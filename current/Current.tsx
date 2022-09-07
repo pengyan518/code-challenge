@@ -15,9 +15,9 @@ const Current = () => {
   const {fetchInitial, city} = useFetchCity()
   const [activeTab, setTabActive] = useState('left')
 
-  const handleBack = useCallback(() => {
-    setDetailPage(false)
-  }, [setDetailPage])
+  // const handleBack = useCallback(() => {
+  //   setDetailPage(false)
+  // }, [setDetailPage])
 
   useEffect(() => {
     if (forecastday.length === 0) {
@@ -28,8 +28,6 @@ const Current = () => {
       }
     }
   }, [fetchInitial, forecastday, city, coordinates.lat, coordinates.long, ip, current, location])
-
-  console.debug(forecastday)
 
   if (forecastday.length === 0) {
     return <div className="a-center">Loading...</div>
@@ -42,8 +40,10 @@ const Current = () => {
           <Condition current={current} location={location} />
         )}
         {future && <FutureCondition location={location} />}
-        <TabSwitch activeTab={activeTab} setTabActive={setTabActive} />
-        {activeTab === 'left' ? <Hourly /> : <CurrentCityDays city={location.name} />}
+        <div className="tab-container__wrapper mt-2">
+          <TabSwitch activeTab={activeTab} setTabActive={setTabActive} />
+          {activeTab === 'left' ? <Hourly /> : <CurrentCityDays city={location.name} />}
+        </div>
       </div>
     </div>
   )

@@ -15,12 +15,12 @@ const TabSwitch = (props: TabSwitchProps) => {
   return (
     <div className="taeb-switch__wrapper">
       <div className={`taeb-switch text-center ${props.activeTab}`}>
-        <div className={`taeb ${props.activeTab === 'left' && 'active'}`} onClick={activeTabOnClick} label="left">
+        <a className={`taeb ${props.activeTab === 'left' && 'active'}`} onClick={activeTabOnClick} label="left">
           Hourly
-        </div>
-        <div className={`taeb ${props.activeTab === 'right' && 'active'}`} onClick={activeTabOnClick} label="right">
+        </a>
+        <a className={`taeb ${props.activeTab === 'right' && 'active'}`} onClick={activeTabOnClick} label="right">
           Daily
-        </div>
+        </a>
       </div>
     </div>
   )

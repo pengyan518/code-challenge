@@ -1,12 +1,13 @@
 :root {
-  --container-width: 850px;
+  --container-width: 60%;
+  --border-radius: 6px;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: itc-avant-garde-gothic-pro, century-gothic, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, itc-avant-garde-gothic-pro, century-gothic, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 *,

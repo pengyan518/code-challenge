@@ -1,8 +1,9 @@
 .current--wrapper {
-  max-width: var(--container-width);
+  width: var(--container-width);
   min-height: 500px;
+  overflow: hidden;
   @media (max-width: 890px) {
-    max-width: calc(100vw - 2rem);
+    width: calc(100vw - 2rem);
   }
 }
 .conditions--large {
@@ -11,7 +12,7 @@
   width: 100%;
   background-color: #4662b4;
   background-size: cover;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   overflow: hidden;
 }
 .conditions--header {
@@ -25,4 +26,9 @@
 .temperature-value {
   font-size: 6rem;
   font-weight: 500;
+}
+.tab-container__wrapper {
+  padding: 10px;
+  background-color: #000;
+  border-radius: var(--border-radius);
 }

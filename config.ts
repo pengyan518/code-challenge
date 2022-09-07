@@ -1,5 +1,5 @@
 export const domain = `https://api.weatherapi.com/`
-export const apiKey: string = `8b6b868c3698444fb66162910222408`
+export const apiKey: string = `c95e374f9bd04b9d8bc154335220709`
 export const prefix: string = `${domain}v1/forecast.json?key=${apiKey}`
 export const prefixSearch: string = `${domain}v1/search.json?key=${apiKey}`
 export default Object.freeze({
