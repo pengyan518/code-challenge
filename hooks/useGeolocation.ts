@@ -24,7 +24,7 @@ const useGeolocation = () => {
   const getCoords: () => Promise<unknown> = () => {
     return new Promise((resolve, reject) => {
       const error = async (err: {code: string; message: string}) => {
-        console.debug(`reject Reason: ${err.message}`)
+        // console.debug(`reject Reason: ${err.message}`)
         const ip = await fetchIp()
         reject(ip)
       }
@@ -53,7 +53,6 @@ const useGeolocation = () => {
       setCoordinates(city)
     } catch (ip) {
       setIp(ip)
-      console.debug(ip)
     }
   }, [setCoordinates, setIp])
 
