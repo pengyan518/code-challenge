@@ -11,8 +11,7 @@ import useResize from '../hooks/Swipe/useResize'
 
 import {ChevronLeft, ChevronRight} from '../icons'
 import {useMainContext} from '../contexts/MainContext'
-import ChevronDown from '../icons/ChevronDown'
-import ChevronUp from '../icons/ChevronUp'
+
 
 export interface SwipeRef {
   next: () => void
@@ -213,16 +212,16 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
   return (
     <div className="swipe__wrapper relative mx-auto">
       <button
-        className={`absolute top-0 z-10 w-full flex items-center justify-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
+        className={`absolute h-full left-0 top-0 z-10 flex items-center justify-center ${activatedPrev() ? '' : 'swipe__nav--inactive'}`}
         onClick={prev}>
         {/*  @ts-ignore */}
-        <ChevronUp className="h-9 w-9 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
+        <ChevronLeft className="h-9 w-9 text-sky-600 ml-2" viewBox="0 0 16 16" />
       </button>
       <button
-        className={`absolute bottom-0 z-10 w-full flex items-center justify-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
+        className={`absolute h-full right-0 top-0 z-10 flex items-center justify-center ${activatedNext() ? '' : 'swipe__nav--inactive'}`}
         onClick={next}>
         {/*  @ts-ignore */}
-        <ChevronDown className="h-9 w-9 text-sky-600 mt-1" viewBox="0 0 16 16" />
+        <ChevronRight className="h-9 w-9 text-sky-600" viewBox="0 0 16 16" />
       </button>
 
       <div
@@ -232,7 +231,7 @@ const Swipe = React.forwardRef<SwipeRef, SwipeProps>((props, ref) => {
         onTouchCancel={onTouchEnd}
         onTouchEnd={onTouchEnd}
         style={props.style}
-        className="mx-auto relative overflow-hidden ml-4 mr-0 md:ml-14 md:mr-12 my-4 w-full">
+        className="mx-auto relative overflow-hidden ml-4 mr-4 md:ml-14 md:mr-12 my-4">
         {/*  @ts-ignore */}
         <div ref={swipeRef} style={wrapperStyle} count={count} className="grid gap-4 md:gap-6 2xl:gap-8">
           {React.Children.map(props.children, (child, index) => {

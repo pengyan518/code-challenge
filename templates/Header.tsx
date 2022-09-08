@@ -24,12 +24,6 @@ const Header = (props: HeaderProps) => {
   return (
     <header className="w-full bd-navbar">
       <div className="header__wrapper bd-gutter flex">
-        <Link href="/dashboard">
-          <div className="cursor-pointer text-white items-center flex">
-            {/*  @ts-ignore */}
-            <ListUl className="h-6 w-6 text-sky-600 ml-2 mt-1" viewBox="0 0 16 16" />
-          </div>
-        </Link>
         <Link href="/">
           <div className="cursor-pointer text-white items-center flex">
             {/*  @ts-ignore */}

@@ -11,12 +11,12 @@ const Suggestion: FC<IProps> = memo(({suggestions}) => {
     <div className="DocSearch-Dropdown">
       <div className="DocSearch-Dropdown-Container">
         <section className="DocSearch-Hits">
-          <div className="DocSearch-Hit-source"/>
+          <div className="DocSearch-Hit-source" />
           <ul role="listbox" aria-labelledby="docsearch-label" id="docsearch-list">
             {suggestions && suggestions.map((item, inx) => <SuggestionItem key={inx} item={item} />)}
           </ul>
         </section>
-        <section className="DocSearch-HitsFooter"></section>
+        <section className="DocSearch-HitsFooter" />
       </div>
     </div>
   )

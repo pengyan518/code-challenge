@@ -30,7 +30,7 @@ const SwipeItem = React.forwardRef<SwipeItemRef, SwipeItemProps>((props, ref) =>
   }, [offset, props.vertical, style])
 
   return (
-    <div ref={swipeItemRef} className="" style={itemStyle}>
+    <div ref={swipeItemRef} style={itemStyle}>
       {children}
     </div>
   )

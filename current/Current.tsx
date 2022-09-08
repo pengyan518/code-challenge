@@ -8,6 +8,7 @@ import {FutureCondition} from './FutureCondition'
 import {CurrentCityDays} from './CurrentCityDays'
 import ListUl from '../icons/ListUl'
 import {TabSwitch} from '../layout/TabSwitch'
+import {Dashboard} from '../dashboard/Dashboard'
 
 const Current = () => {
   const {setDetailPage, current, location, forecastday, future} = useMainContext()
@@ -44,6 +45,7 @@ const Current = () => {
           <TabSwitch activeTab={activeTab} setTabActive={setTabActive} />
           {activeTab === 'left' ? <Hourly /> : <CurrentCityDays city={location.name} />}
         </div>
+        <Dashboard />
       </div>
     </div>
   )

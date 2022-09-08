@@ -1,96 +1,29 @@
 import React, {memo, useCallback, FC} from 'react'
 import Link from 'next/link'
-import {useFetchCity} from '../hooks/useFetchCity'
+// import {useFetchCity} from '../hooks/useFetchCity'
 import {useMainContext} from '../contexts/MainContext'
+import useTargetCity from '../hooks/useTargetCity'
 
 type SuggestionItemProps = {
   item: {
     name: string
     region: string
+    fromSearchBox: boolean
   }
 }
 const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
-  const {
-    setShowSuggestion,
-    swipeCount,
-    setLimit,
-    setHoursDetail,
-    setDetailPage,
-    setFuture,
-    setLocation,
-    setFutureInfo,
-    setShowSearchPopup,
-  } = useMainContext()
-  const {fetchInitial, forecastday, city} = useFetchCity()
-
-  const showHours = useCallback(
-    (hour: any, date: any) => {
-      setDetailPage(true)
-      setFuture(true)
-      setHoursDetail({
-        city: item.name,
-        hour,
-        date,
-      })
-    },
-    [item.name, setDetailPage, setFuture, setHoursDetail]
-  )
-
-  const fetchDetails = useCallback(
-    (oneDay: any) => {
-      const currentCity: {location: {}; current: {}} = forecastday.filter((city: {city: string}) => city.city === item.name)[0]
-      setLocation(currentCity.location)
-      setFutureInfo(oneDay)
-    },
-    [forecastday, item.name, setFutureInfo, setLocation]
-  )
+  const {setShowSuggestion, setShowSearchPopup} = useMainContext()
+  item.fromSearchBox = true
+  const {handleTargetCityAction} = useTargetCity({item})
 
   const handleClick = useCallback(() => {
-    const feeds = forecastday.map(v => v.city)
-    if (feeds.includes(item.name)) {
-      const cityIndex = feeds.indexOf(item.name)
-      showHours(forecastday[cityIndex].days[0].hour, forecastday[cityIndex].days[0].date)
-      fetchDetails(forecastday[cityIndex].days[0])
-    } else if (swipeCount < 20) {
-      setDetailPage(true)
-      fetchInitial(item.name)
-    } else {
-      setLimit(true)
-      alert('Up to 20 Cities!')
-    }
+    handleTargetCityAction()
 
     // setShowSuggestion(false)
     // setShowSearchPopup(false)
     // @ts-ignore
     document.querySelector('#search-form').value = ''
-
-    console.debug('forecastday:', forecastday)
-
-    // const feeds = forecastday.map(item => item.city)
-    // if (feeds.includes(name)) {
-    //   setSearchResultInStore(true)
-    //   setTargetPage(feeds.indexOf(name))
-    // } else if (swipeCount < 20) {
-    //   fetchInitial(name)
-    //   if (swipeCount >= swipeGroupLength && !searchResultInStore) {
-    //     setGoToTargetPage(true)
-    //   }
-    // } else {
-    //   setLimit(true)
-    //   alert('Up to 20 Cities!')
-    // }
-  }, [
-    fetchDetails,
-    fetchInitial,
-    forecastday,
-    item.name,
-    setDetailPage,
-    setLimit,
-    setShowSearchPopup,
-    setShowSuggestion,
-    showHours,
-    swipeCount,
-  ])
+  }, [handleTargetCityAction, setShowSearchPopup, setShowSuggestion])
 
   return (
     <Link href="/">
@@ -99,13 +32,6 @@ const SuggestionItem: FC<SuggestionItemProps> = memo(({item}) => {
           <div className="DocSearch-Hit-Container">
             {/*<div className="DocSearch-Hit-icon">*/}
             {/*  <svg width="20" height="20" viewBox="0 0 20 20">*/}
-            {/*    <path*/}
-            {/*      d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"*/}
-            {/*      stroke="currentColor"*/}
-            {/*      fill="none"*/}
-            {/*      fillRule="evenodd"*/}
-            {/*      strokeLinecap="round"*/}
-            {/*      strokeLinejoin="round"></path>*/}
             {/*  </svg>*/}
             {/*</div>*/}
             <div className="DocSearch-Hit-content-wrapper">

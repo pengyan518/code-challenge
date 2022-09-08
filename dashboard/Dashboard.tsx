@@ -1,5 +1,5 @@
 import {ReactNode, useEffect, useState} from 'react'
-import {CityDays} from './CityDays'
+import {Cities} from './Cities'
 import {useMainContext} from '../contexts/MainContext'
 
 const Dashboard = () => {
@@ -7,8 +7,8 @@ const Dashboard = () => {
     console.debug('forecastday2:', forecastday)
 
   return (
-    <div className="w-full">
-      <div className="mx-auto current--wrapper p-4">{forecastday.length === 0 ? <div className="a-center">Loading...</div> : <CityDays forecastday={forecastday} />}</div>
+    <div className="w-full mt-2">
+      <div className="mx-auto cities__wrapper">{forecastday.length === 0 ? <div className="a-center">Loading...</div> : <Cities forecastday={forecastday} />}</div>
     </div>
   )
 }

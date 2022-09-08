@@ -47,7 +47,7 @@ const Banner = (props: IBannerProps) => {
           <div>{localtime}</div>
           <div className="temperature-value">{temp_f}°</div>
           <div>{text}</div>
-          <div>{feelslike_f && <span>Feels Like {feelslike_f}°</span>}</div>
+          <div className="conditions-feels">{feelslike_f && <span>Feels Like {feelslike_f}°</span>}</div>
         </div>
         <img src={icon} alt={text} width={64} height={64} />
       </div>
