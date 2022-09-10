@@ -1,6 +1,5 @@
 import {render, screen} from '@testing-library/react'
 import Home from '@/pages/index'
-import {Current} from '../current/Current'
 
 describe('Home', () => {
   // it('renders a heading', () => {
@@ -13,17 +12,9 @@ describe('Home', () => {
   //   expect(heading).toBeInTheDocument()
   // })
 
-  it('does not call onGetCurrentLocation', () => {
-    const component = mount(<App />)
-    <Current
-    const instance = component.instance()
+  it('matches snapshot with currentForecast hourly', () => {
+    const component = mount(<Header currentForecast="hourly" />)
 
-    component.state().updating = true
-
-    spyOn(instance, 'onGetCurrentLocation')
-
-    instance.onGPSLocationClick()
-
-    expect(instance.onGetCurrentLocation).not.toBeCalled()
+    expect(component).toMatchSnapshot()
   })
 })
