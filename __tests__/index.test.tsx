@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import Home from '@/pages/index'
 
 describe('Home', () => {
@@ -11,4 +11,10 @@ describe('Home', () => {
   //
   //   expect(heading).toBeInTheDocument()
   // })
+
+  it('matches snapshot with currentForecast hourly', () => {
+    const component = mount(<Header currentForecast="hourly" />)
+
+    expect(component).toMatchSnapshot()
+  })
 })
