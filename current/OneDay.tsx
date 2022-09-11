@@ -33,8 +33,8 @@ const OneDay = (props: DayProps) => {
   }, [forecastday, props.city, props.oneDay, setFutureInfo, setLocation, setTwelveHoursPage, showHours])
 
   return (
-    <Link href="/details" className="card text-center" onClick={fetchDetails}>
-      <div>
+    <Link href="/details" onClick={fetchDetails}>
+      <div className="card text-center">
         <div className="text-sm">{date}</div>
         {condition.icon && <img src={`https:${condition.icon}`} alt={condition.text} width={48} height={48} />}
         <p>

@@ -30,7 +30,7 @@ const ButtonContainer = (props: TabSwitchProps) => {
 
   return (
     <div className={`taeb-switch text-center ${props.activeTab}`}>
-      {React.Children.map(props.children, child => {
+      {React.Children.map(props.children, (child:any) => {
         return React.cloneElement(child as React.ReactElement<any>, {newProp, myClassName: myClassName(child), onClick: activeTabOnClick})
       })}
     </div>

@@ -12,7 +12,6 @@ type CityDaysProps = {
 const CurrentCityDays = (props: CityDaysProps) => {
   const {forecastday} = useMainContext()
 
-  const container = useRef(null)
   const oneCity = useMemo(() => forecastday.filter(city => city.city === props.city)[0], [forecastday, props.city])
   const curve = useCallback(
     (itemWidth: number, itemHeight: number, baseHeight: number) =>
