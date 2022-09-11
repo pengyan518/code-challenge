@@ -7,12 +7,19 @@ type TabSwitchProps = {
   setTabActive: any
 }
 
-const ButtonContainer = props => {
+type Iprops = {
+  text: string
+  newProp?: any
+  myClassName?: any
+  label: string
+}
+
+const ButtonContainer = (props: TabSwitchProps) => {
   const newProp = {
     textColor: '#ffffff',
   }
 
-  const myClassName = child => {
+  const myClassName = (child: {props: {label: any}}) => {
     return `taeb ${props.activeTab === child.props.label ? 'active' : ''}`
   }
 
@@ -24,13 +31,13 @@ const ButtonContainer = props => {
   return (
     <div className={`taeb-switch text-center ${props.activeTab}`}>
       {React.Children.map(props.children, child => {
-        return React.cloneElement(child, {newProp, myClassName: myClassName(child), onClick: activeTabOnClick})
+        return React.cloneElement(child as React.ReactElement<any>, {newProp, myClassName: myClassName(child), onClick: activeTabOnClick})
       })}
     </div>
   )
 }
 
-const TabItem = ({text, ...props}) => {
+const TabItem = ({text, ...props}:Iprops) => {
   return (
     <a
       {...props}
