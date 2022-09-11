@@ -1,5 +1,5 @@
-import {ReactNode, useCallback} from 'react'
-import config from '../config'
+import React, {ReactNode, useCallback} from 'react'
+
 
 type TabSwitchProps = {
   children?: ReactNode
@@ -7,21 +7,49 @@ type TabSwitchProps = {
   setTabActive: any
 }
 
-const TabSwitch = (props: TabSwitchProps) => {
+const ButtonContainer = props => {
+  const newProp = {
+    textColor: '#ffffff',
+  }
+
+  const myClassName = child => {
+    return `taeb ${props.activeTab === child.props.label ? 'active' : ''}`
+  }
+
   const activeTabOnClick = useCallback(
-    (e: {target: {getAttribute: (arg0: string) => any}}) => props.setTabActive(e.target.getAttribute('label')),
+    (e: {target: {getAttribute: (arg: string) => any}}) => props.setTabActive(e.target.getAttribute('label')),
     [props]
   )
+
+  return (
+    <div className={`taeb-switch text-center ${props.activeTab}`}>
+      {React.Children.map(props.children, child => {
+        return React.cloneElement(child, {newProp, myClassName: myClassName(child), onClick: activeTabOnClick})
+      })}
+    </div>
+  )
+}
+
+const TabItem = ({text, ...props}) => {
+  return (
+    <a
+      {...props}
+      style={{
+        color: props.newProp.textColor,
+      }}
+      className={props.myClassName}>
+      {text}
+    </a>
+  )
+}
+
+const TabSwitch = (props: TabSwitchProps) => {
   return (
     <div className="taeb-switch__wrapper">
-      <div className={`taeb-switch text-center ${props.activeTab}`}>
-        <a className={`taeb ${props.activeTab === 'left' && 'active'}`} onClick={activeTabOnClick} label="left">
-          Hourly
-        </a>
-        <a className={`taeb ${props.activeTab === 'right' && 'active'}`} onClick={activeTabOnClick} label="right">
-          Daily
-        </a>
-      </div>
+      <ButtonContainer activeTab={props.activeTab} setTabActive={props.setTabActive}>
+        <TabItem text="Hourly" label="left" />
+        <TabItem text="Daily" label="right" />
+      </ButtonContainer>
     </div>
   )
 }
