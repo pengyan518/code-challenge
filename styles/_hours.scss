@@ -5,8 +5,10 @@
   display: grid;
 }
 .hours-grid-wrapper {
-  overflow-x: auto;
+  overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
+  overflow-y: hidden;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
   @media (max-width: 767px) {
     max-width: calc(100vw - 2rem);
   }
@@ -17,6 +19,9 @@
   @media (max-width: 767px) {
     //max-width: 100%;
   }
+}
+.hour-temp {
+  min-height: 2rem;
 }
 .twelve-hours__container {
   width: var(--container-width);
