@@ -1,5 +1,6 @@
 :root {
   --module-rail-padding: 26px;
+  --hour-width: 100px;
 }
 .grid-wrapper {
   display: grid;
@@ -9,13 +10,14 @@
   -webkit-overflow-scrolling: touch;
   overflow-y: hidden;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  min-height: 200px;
   @media (max-width: 767px) {
     max-width: calc(100vw - 2rem);
   }
 }
 .hours-grid {
-  width: 1200px;
-  grid-template-columns: repeat(12, 1fr);
+  width: calc(var(--hour-width) * 24);
+  grid-template-columns: repeat(24, 1fr);
   @media (max-width: 767px) {
     //max-width: 100%;
   }

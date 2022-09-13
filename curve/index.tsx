@@ -5,12 +5,13 @@ import {useMainContext} from '../contexts/MainContext'
 interface Iprops {
   itemWidth?: number
   itemHeight?: number
+  baseHeight?: number
   curve?: any
 }
 
 // @ts-ignore
 const Curve: React.FC<Iprops> = props => {
-  const {itemWidth = 100, itemHeight = 150, curve} = props
+  const {itemWidth = 100, itemHeight = 150, curve, baseHeight = 0} = props
 
   const points = useRef(null)
 
@@ -24,7 +25,7 @@ const Curve: React.FC<Iprops> = props => {
         xmlns={config.xlmns}
         fill="currentColor"
         width={curve.length * itemWidth}
-        height={itemHeight}
+        height={itemHeight + baseHeight}
         viewBox={`0 0 ${curve.length * itemWidth} ${itemHeight}`}>
         {/* @ts-ignore */}
         <g>

@@ -1,13 +1,12 @@
 import React, {ReactNode, useCallback} from 'react'
 
-
 type TabSwitchProps = {
-  children?: ReactNode
+  children: ReactNode
   activeTab: string
   setTabActive: any
 }
 
-type Iprops = {
+type IProps = {
   text: string
   newProp?: any
   myClassName?: any
@@ -30,14 +29,14 @@ const ButtonContainer = (props: TabSwitchProps) => {
 
   return (
     <div className={`taeb-switch text-center ${props.activeTab}`}>
-      {React.Children.map(props.children, (child:any) => {
+      {React.Children.map(props.children, (child: any) => {
         return React.cloneElement(child as React.ReactElement<any>, {newProp, myClassName: myClassName(child), onClick: activeTabOnClick})
       })}
     </div>
   )
 }
 
-const TabItem = ({text, ...props}:Iprops) => {
+const TabItem = ({text, ...props}: IProps) => {
   return (
     <a
       {...props}

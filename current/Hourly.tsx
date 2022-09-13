@@ -1,39 +1,57 @@
+import React, {ReactNode, useCallback, useMemo} from 'react'
 import {useMainContext} from '../contexts/MainContext'
 import Curve from '../curve'
-import {useCallback} from 'react'
+import {OneHour} from './OneHour'
+
+
+type HoursWrapperProps = {
+  children?: ReactNode
+}
+
+const HoursWrapper = (props: HoursWrapperProps) => {
+
+  const newClassName = (child: {props: {index: number}}) => {
+    const now = new Date().getHours()
+    
+    if  (child.props.index > now) {
+      return 'text-center active'
+    }
+    return 'text-center'
+  }
+
+  return (
+    <div className="hours-grid grid relative z-10">
+      {React.Children.map(props.children, (child: any) => {
+        return React.cloneElement(child as React.ReactElement<any>, {myClassName: newClassName(child)})
+      })}
+    </div>
+  )
+}
 
 const Hourly = () => {
   const {hoursDetail} = useMainContext()
-  const hours = hoursDetail.hour.filter((hour: any, index: number) => index < 12)
+  // const hours = hoursDetail.hour.filter((hour: any, index: number) => index < 16 && index > 4)
   const curve = useCallback(
     (itemWidth: number, itemHeight: number, baseHeight: number) =>
-      hours.map((oneHour: {temp_f: any}, index: number) => {
+      hoursDetail.hour.map((oneHour: {temp_f: any}, index: number) => {
         const {temp_f} = oneHour
         return `${index * itemWidth + itemWidth / 2},${itemHeight - temp_f - baseHeight}`
       }),
-    [hours]
+    [hoursDetail.hour]
   )
 
   return (
     <div className="hours-grid-wrapper mx-auto mt-4 relative">
       {hoursDetail.hour.length > 0 && (
         <>
-          <Curve curve={curve(100, 150, 20)} />
-          <div className="hours-grid grid relative z-10">
+          <Curve curve={curve(100, 150, 20)} baseHeight={20} />
+          <HoursWrapper>
             {hoursDetail.hour
-              .filter((hour: any, index: number) => index < 12)
-              .map((oneHour: {condition: any; temp_f: any; time_epoch: any; time: any, chance_of_rain: number}) => {
-                const {condition, temp_f, time_epoch, time, chance_of_rain} = oneHour
-                return (
-                  <div key={time_epoch} className="text-center">
-                    <div>{time.split(' ')[1]}</div>
-                    <div className="hour-temp">{temp_f}°</div>
-                    <img src={`https://${condition.icon}`} alt="" width={48} height={48} />
-                    <div>{chance_of_rain > 0 && <span>{chance_of_rain}%</span>}</div>
-                  </div>
-                )
+              // .filter((hour: any, index: number) => index < 16 && index > 4)
+              .map((oneHour: {condition: any; temp_f: any; time_epoch: any; time: any; chance_of_rain: number}, index: any) => {
+                return <OneHour oneHour={oneHour} key={oneHour.time_epoch} index={index} />
               })}
-          </div>
+          </HoursWrapper>
         </>
       )}
     </div>

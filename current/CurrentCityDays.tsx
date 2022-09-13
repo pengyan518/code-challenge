@@ -32,11 +32,11 @@ const CurrentCityDays = (props: CityDaysProps) => {
   })
 
   return (
-    <div key={oneCity.city} className="w-full mt-2">
+    <div key={oneCity.city} className="w-full mt-4">
       <div className="grid relative">
         {oneCity.days.length > 0 && (
           <>
-            <Curve curve={curve(size.width/5, 150, 0)} itemHeight={150} itemWidth={size.width/5} />
+            <Curve curve={curve(size.width/5, 150, 30)} itemHeight={150} itemWidth={size.width/5} baseHeight={30} />
             <div className="city-days--grid grid relative z-10" ref={root}>
               {oneCity.days.map((oneDay: {date_epoch: string}) => (
                 <OneDay key={oneDay.date_epoch} oneDay={oneDay} city={oneCity.city} />
