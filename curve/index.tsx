@@ -7,6 +7,7 @@ interface Iprops {
   itemHeight?: number
   baseHeight?: number
   curve?: any
+  style?: any
 }
 
 // @ts-ignore
@@ -19,7 +20,7 @@ const Curve: React.FC<Iprops> = props => {
   points.current = [`${itemWidth / 2},${itemHeight}`, ...curve, `${(curve.length - 1) * itemWidth + itemWidth / 2},${itemHeight}`]
   // @ts-ignore
   return (
-    <div className="curve__wrapper absolute bottom-0 left-0 z-0">
+    <div className="curve__wrapper absolute bottom-0 left-0 z-0" {...props}>
       {/* @ts-ignore */}
       <svg
         xmlns={config.xlmns}

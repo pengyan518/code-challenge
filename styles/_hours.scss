@@ -22,6 +22,12 @@
     //max-width: 100%;
   }
 }
+.hour-item {
+  opacity: 0.4;
+  &.active {
+    opacity: 1;
+  }
+}
 .hour-temp {
   min-height: 2rem;
 }

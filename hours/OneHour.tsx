@@ -3,7 +3,7 @@ import React, {ReactNode, useCallback, useMemo} from 'react'
 interface IProps {
   oneHour: any
   index: number
-  myClassName: string
+  myClassName?: string
 }
 
 const OneHour: React.FC<IProps> = ({oneHour, index, myClassName}) => {

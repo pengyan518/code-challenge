@@ -1,36 +1,16 @@
-import React, {ReactNode, useCallback, useMemo} from 'react'
+import React, {ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {useMainContext} from '../contexts/MainContext'
 import Curve from '../curve'
 import {OneHour} from './OneHour'
+import {HoursWrapper} from './HoursWrapper'
 
 
-type HoursWrapperProps = {
-  children?: ReactNode
-}
 
-const HoursWrapper = (props: HoursWrapperProps) => {
-
-  const newClassName = (child: {props: {index: number}}) => {
-    const now = new Date().getHours()
-    
-    if  (child.props.index > now) {
-      return 'text-center active'
-    }
-    return 'text-center'
-  }
-
-  return (
-    <div className="hours-grid grid relative z-10">
-      {React.Children.map(props.children, (child: any) => {
-        return React.cloneElement(child as React.ReactElement<any>, {myClassName: newClassName(child)})
-      })}
-    </div>
-  )
-}
 
 const Hourly = () => {
+  const [style, setStyle] = useState({})
   const {hoursDetail} = useMainContext()
-  // const hours = hoursDetail.hour.filter((hour: any, index: number) => index < 16 && index > 4)
+  const hoursRef = useRef<any>(null)
   const curve = useCallback(
     (itemWidth: number, itemHeight: number, baseHeight: number) =>
       hoursDetail.hour.map((oneHour: {temp_f: any}, index: number) => {
@@ -40,14 +20,19 @@ const Hourly = () => {
     [hoursDetail.hour]
   )
 
+
+  useEffect(() => {
+    setStyle(hoursRef.current.transformStyle)
+  }, [])
+
+
   return (
     <div className="hours-grid-wrapper mx-auto mt-4 relative">
       {hoursDetail.hour.length > 0 && (
         <>
-          <Curve curve={curve(100, 150, 20)} baseHeight={20} />
-          <HoursWrapper>
+          <Curve curve={curve(100, 150, 20)} baseHeight={20} style={style} />
+          <HoursWrapper ref={hoursRef}>
             {hoursDetail.hour
-              // .filter((hour: any, index: number) => index < 16 && index > 4)
               .map((oneHour: {condition: any; temp_f: any; time_epoch: any; time: any; chance_of_rain: number}, index: any) => {
                 return <OneHour oneHour={oneHour} key={oneHour.time_epoch} index={index} />
               })}

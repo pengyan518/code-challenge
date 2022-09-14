@@ -1,7 +1,7 @@
 import React, {ReactNode, useCallback} from 'react'
 
 type TabSwitchProps = {
-  children: ReactNode
+  children?: ReactNode
   activeTab: string
   setTabActive: any
 }

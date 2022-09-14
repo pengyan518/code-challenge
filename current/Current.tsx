@@ -2,11 +2,10 @@ import {useCallback, useEffect, useState} from 'react'
 import {useMainContext} from '../contexts/MainContext'
 import {useFetchCity} from '../hooks/useFetchCity'
 import useGeolocation from '../hooks/useGeolocation'
-import {Hourly} from './Hourly'
+import {Hourly} from '../hours/Hourly'
 import {Condition} from './Condition'
 import {FutureCondition} from './FutureCondition'
 import {CurrentCityDays} from './CurrentCityDays'
-import ListUl from '../icons/ListUl'
 import {TabSwitch} from '../layout/TabSwitch'
 import {Dashboard} from '../dashboard/Dashboard'
 
@@ -15,10 +14,6 @@ const Current = () => {
   const {coordinates, ip} = useGeolocation()
   const {fetchInitial, city} = useFetchCity()
   const [activeTab, setTabActive] = useState('left')
-
-  // const handleBack = useCallback(() => {
-  //   setDetailPage(false)
-  // }, [setDetailPage])
 
   useEffect(() => {
     if (forecastday.length === 0) {
