@@ -6,7 +6,7 @@ type HoursWrapperProps = {
 
 const HoursBox = (props: HoursWrapperProps, ref: React.Ref<unknown> | undefined) => {
   const currentTime = useRef(new Date().getHours())
-  // const hoursRef = useRef<any>(null)
+  const hoursRef = useRef<any>(null)
 
   const newClassName = (child: {props: {index: number}}) => {
     if (child.props.index > currentTime.current) {
@@ -25,8 +25,21 @@ const HoursBox = (props: HoursWrapperProps, ref: React.Ref<unknown> | undefined)
     [transformStyle]
   )
 
+  const onScrollHandle = useCallback((e: any) => {
+    console.debug(e)
+  }, [])
+
+  useEffect(() => {
+    hoursRef.current.addEventListener('scroll', e => {
+      // handle the scroll event
+      console.debug(e)
+    })
+
+    return () => {}
+  }, [])
+
   return (
-    <div className="hours-grid grid relative z-10" style={transformStyle}>
+    <div className="hours-grid grid relative z-10" style={transformStyle} ref={hoursRef}>
       {React.Children.map(props.children, (child: any) => {
         return React.cloneElement(child as React.ReactElement<any>, {myClassName: newClassName(child)})
       })}

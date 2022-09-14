@@ -11,6 +11,7 @@ const Hourly = () => {
   const [style, setStyle] = useState({})
   const {hoursDetail} = useMainContext()
   const hoursRef = useRef<any>(null)
+  const wrapperRef = useRef<any>(null)
   const curve = useCallback(
     (itemWidth: number, itemHeight: number, baseHeight: number) =>
       hoursDetail.hour.map((oneHour: {temp_f: any}, index: number) => {
@@ -19,7 +20,9 @@ const Hourly = () => {
       }),
     [hoursDetail.hour]
   )
-
+  const onScrollHandle = useCallback((e: any) => {
+    console.debug(wrapperRef.current.scrollLeft)
+  }, [])
 
   useEffect(() => {
     setStyle(hoursRef.current.transformStyle)
@@ -27,7 +30,7 @@ const Hourly = () => {
 
 
   return (
-    <div className="hours-grid-wrapper mx-auto mt-4 relative">
+    <div className="hours-grid-wrapper mx-auto mt-4 relative" onScroll={onScrollHandle} ref={wrapperRef}>
       {hoursDetail.hour.length > 0 && (
         <>
           <Curve curve={curve(100, 150, 20)} baseHeight={20} style={style} />

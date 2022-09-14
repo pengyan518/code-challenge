@@ -11,6 +11,7 @@
   overflow-y: hidden;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   min-height: 200px;
+  //overflow: hidden;
   @media (max-width: 767px) {
     max-width: calc(100vw - 2rem);
   }

@@ -11,7 +11,7 @@ interface Iprops {
 }
 
 // @ts-ignore
-const Curve: React.FC<Iprops> = props => {
+const Curve: React.FC<Iprops> = (props) => {
   const {itemWidth = 100, itemHeight = 150, curve, baseHeight = 0} = props
 
   const points = useRef(null)
@@ -20,7 +20,7 @@ const Curve: React.FC<Iprops> = props => {
   points.current = [`${itemWidth / 2},${itemHeight}`, ...curve, `${(curve.length - 1) * itemWidth + itemWidth / 2},${itemHeight}`]
   // @ts-ignore
   return (
-    <div className="curve__wrapper absolute bottom-0 left-0 z-0" {...props}>
+    <div className="curve__wrapper absolute bottom-0 left-0 z-0" style={props.style}>
       {/* @ts-ignore */}
       <svg
         xmlns={config.xlmns}
