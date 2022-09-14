@@ -4,9 +4,6 @@ import Curve from '../curve'
 import {OneHour} from './OneHour'
 import {HoursWrapper} from './HoursWrapper'
 
-
-
-
 const Hourly = () => {
   const [style, setStyle] = useState({})
   const {hoursDetail} = useMainContext()
@@ -20,25 +17,29 @@ const Hourly = () => {
       }),
     [hoursDetail.hour]
   )
-  const onScrollHandle = useCallback((e: any) => {
-    console.debug(wrapperRef.current.scrollLeft)
-  }, [])
+  // const onScrollHandle = useCallback((e: any) => {
+  //   console.debug(wrapperRef.current.scrollLeft)
+  // }, [])
+
+  // useEffect(() => {
+  //   setStyle(hoursRef.current.transformStyle)
+  // }, [])
 
   useEffect(() => {
-    setStyle(hoursRef.current.transformStyle)
+    wrapperRef.current.scrollTo(hoursRef.current.currentTime * 100, 0)
   }, [])
 
-
   return (
-    <div className="hours-grid-wrapper mx-auto mt-4 relative" onScroll={onScrollHandle} ref={wrapperRef}>
+    <div className="hours-grid-wrapper mx-auto mt-4 relative" ref={wrapperRef}>
       {hoursDetail.hour.length > 0 && (
         <>
-          <Curve curve={curve(100, 150, 20)} baseHeight={20} style={style} />
+          <Curve curve={curve(100, 150, 20)} baseHeight={20} />
           <HoursWrapper ref={hoursRef}>
-            {hoursDetail.hour
-              .map((oneHour: {condition: any; temp_f: any; time_epoch: any; time: any; chance_of_rain: number}, index: any) => {
+            {hoursDetail.hour.map(
+              (oneHour: {condition: any; temp_f: any; time_epoch: any; time: any; chance_of_rain: number}, index: any) => {
                 return <OneHour oneHour={oneHour} key={oneHour.time_epoch} index={index} />
-              })}
+              }
+            )}
           </HoursWrapper>
         </>
       )}
