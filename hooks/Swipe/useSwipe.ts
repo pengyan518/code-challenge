@@ -1,5 +1,5 @@
 import {useRef, useState, useMemo, useEffect} from 'react'
-import useRefs from './useRefs'
+import useRefs from '../useRefs'
 
 type SwipeParams = {
   count: number

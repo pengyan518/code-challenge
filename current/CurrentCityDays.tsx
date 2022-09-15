@@ -2,8 +2,8 @@ import {useCallback, useMemo, useRef} from 'react'
 import {OneDay} from './OneDay'
 import {useMainContext} from '../contexts/MainContext'
 import Curve from '../curve'
-import useResize from '../hooks/Swipe/useResize'
-import useRect from '../hooks/Swipe/useRect'
+import useResize from '../hooks/useResize'
+import useRect from '../hooks/useRect'
 
 type CityDaysProps = {
   city: string

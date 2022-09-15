@@ -1,7 +1,7 @@
 import {forwardRef, useImperativeHandle} from 'react'
 
-import useRect from '../hooks/Swipe/useRect'
-import useResize from '../hooks/Swipe/useResize'
+import useRect from '../hooks/useRect'
+import useResize from '../hooks/useResize'
 
 interface IProps {
   oneHour: any

@@ -1,5 +1,5 @@
 import React, {forwardRef, ReactNode, useCallback, useEffect, useImperativeHandle, useMemo, useRef} from 'react'
-import useRefs from '../hooks/Swipe/useRefs'
+import useRefs from '../hooks/useRefs'
 
 interface HourItemRef {
   top: number
