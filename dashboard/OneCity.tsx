@@ -9,7 +9,7 @@ const OneCity = ({oneCity}: CityDaysProps) => {
   const item = {
     name: city,
   }
-  console.debug(oneCity)
+  // console.debug(oneCity)
   const {handleTargetCityAction} = useTargetCity({item})
   return (
     <div className="cursor-pointer city__item text-center" onClick={handleTargetCityAction}>

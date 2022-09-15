@@ -5,7 +5,7 @@ import {OneHour} from './OneHour'
 import {HoursWrapper} from './HoursWrapper'
 
 const Hourly = () => {
-  const [style, setStyle] = useState({})
+  // const [style, setStyle] = useState({})
   const {hoursDetail} = useMainContext()
   const hoursRef = useRef<any>(null)
   const wrapperRef = useRef<any>(null)

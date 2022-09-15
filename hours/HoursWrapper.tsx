@@ -15,22 +15,24 @@ const HoursBox = (props: HoursWrapperProps, ref: React.Ref<unknown> | undefined)
     return 'hour-item text-center'
   }
 
-  const transformStyle = useMemo(() => ({transform: `translateX(${-currentTime.current * 100}px)`}), [])
+  // const transformStyle = useMemo(() => ({transform: `translateX(${-currentTime.current * 100}px)`}), [])
 
   useImperativeHandle(
     ref,
     () => ({
-      transformStyle,
-      currentTime: currentTime.current
+      // transformStyle,
+      currentTime: currentTime.current,
     }),
-    [transformStyle]
+    []
   )
+
+  const items = React.Children.map(props.children, (child: any) => {
+    return React.cloneElement(child as React.ReactElement<any>, {myClassName: newClassName(child)})
+  })
 
   return (
     <div className="hours-grid grid relative z-10" ref={hoursRef}>
-      {React.Children.map(props.children, (child: any) => {
-        return React.cloneElement(child as React.ReactElement<any>, {myClassName: newClassName(child)})
-      })}
+      {items}
     </div>
   )
 }
