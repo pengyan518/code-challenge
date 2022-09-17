@@ -1,6 +1,6 @@
 import React, {ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {useMainContext} from '../../contexts/MainContext'
-import Curve from '../curve'
+import Curve from '../Curve'
 import {OneHour} from './OneHour'
 import {HoursWrapper} from './HoursWrapper'
 

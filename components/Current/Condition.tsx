@@ -1,4 +1,4 @@
-import {Banner} from '../layout/Banner'
+import {Banner} from '../Layout/Banner'
 
 interface IProps {
   current: any

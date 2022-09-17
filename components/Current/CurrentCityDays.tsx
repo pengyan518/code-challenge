@@ -1,7 +1,7 @@
 import {useCallback, useMemo, useRef} from 'react'
 import {OneDay} from './OneDay'
 import {useMainContext} from '../../contexts/MainContext'
-import Curve from '../curve'
+import Curve from '../Curve'
 import useResize from '../../hooks/useResize'
 import useRect from '../../hooks/useRect'
 

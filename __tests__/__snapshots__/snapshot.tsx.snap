@@ -6,6 +6,9 @@ exports[`renders homepage unchanged 1`] = `
     <main
       class="mainHome__body main mx-auto"
     >
+      <h1>
+        welcome to next.js!
+      </h1>
       <header
         class="w-full bd-navbar"
       >

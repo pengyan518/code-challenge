@@ -1,5 +1,5 @@
 import {useMainContext} from '../../contexts/MainContext'
-import {Banner} from '../layout/Banner'
+import {Banner} from '../Layout/Banner'
 interface IProps {
   location: any
 }

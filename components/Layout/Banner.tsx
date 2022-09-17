@@ -39,7 +39,7 @@ const Banner = (props: IBannerProps) => {
   }
   return (
     <div className="conditions--large mx-auto" style={conditionWrapper}>
-      <header className="conditions--header">
+      <header className="conditions--header" data-testid="conditions--header">
         {name}, {region}
       </header>
       <div className="conditions--body w-full grid">

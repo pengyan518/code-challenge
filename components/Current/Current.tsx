@@ -2,12 +2,12 @@ import {useCallback, useEffect, useState} from 'react'
 import {useMainContext} from '../../contexts/MainContext'
 import {useFetchCity} from '../../hooks/useFetchCity'
 import useGeolocation from '../../hooks/useGeolocation'
-import {Hourly} from '../hours/Hourly'
+import {Hourly} from '../Hours/Hourly'
 import {Condition} from './Condition'
 import {FutureCondition} from './FutureCondition'
 import {CurrentCityDays} from './CurrentCityDays'
-import {TabSwitch} from '../layout/TabSwitch'
-import {Dashboard} from '../dashboard/Dashboard'
+import {TabSwitch} from '../Layout/TabSwitch'
+import {Dashboard} from '../Dashboard/Dashboard'
 
 const Current = () => {
   const {setDetailPage, current, location, forecastday, future} = useMainContext()

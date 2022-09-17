@@ -1,8 +1,8 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
 import {Drawer} from '../../components/Search/Drawer'
-import {Dashboard} from '../../components/dashboard/Dashboard'
-import {Header} from '../../components/templates/Header'
+import {Dashboard} from '../../components/Dashboard/Dashboard'
+import {Header} from '../../components/Templates/Header'
 import {TwelveHoursView} from "../../components/TwelveHoursView/TwelveHoursView";
 
 const Home: NextPage = () => {

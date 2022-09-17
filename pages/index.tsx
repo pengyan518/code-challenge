@@ -1,8 +1,7 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-// import {MainContext} from '../contexts/MainContext'
-import {MainHome} from '../components/templates/MainHome'
-import {Drawer} from '../components/Search/Drawer'
+import {MainHome} from '@/components/Templates/MainHome'
+import {Drawer} from '@/components/Search/Drawer'
 
 const Home: NextPage = () => {
   return (
